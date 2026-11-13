@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BiteShare | Customer Login</title>
+  <link rel="stylesheet" href="login style.css">
+</head>
+<body class="login-body">
+
+  <div class="login-overlay">
+    <div class="login-card customer-card">
+      <!-- Close / Back Button -->
+      <a href="index.html" class="close-btn">&times;</a>
+
+      <div class="badge-container">
+        <span class="pill-badge customer-pill">RECIPIENT • FOOD FINDER</span>
+      </div>
+
+      <h2>Customer Login</h2>
+      <p class="login-subtitle">Sign in to claim surplus fresh meals or use one-click demo OTP.</p>
+
+      <!-- Auto-Login Banner (shown if token exists) -->
+      <div id="autoLoginBanner" style="display:none; background:#e6fcf5; color:#0ca678; padding:10px; border-radius:8px; margin-bottom:12px; font-size:14px; text-align:center;">
+        Checking saved session...
+      </div>
+
+      <!-- DEMO OTP LOGIN SECTION -->
+      <div class="demo-otp-section" style="background: #f8f9fa; border: 1px dashed #2d6a4f; border-radius: 8px; padding: 12px; margin-bottom: 16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <strong style="color: #2d6a4f; font-size: 14px;">⚡ Instant Demo Login</strong>
+          <span style="font-size: 12px; color: #666;">No password needed</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <input id="demoPhone" type="tel" placeholder="Enter Phone (e.g. 9876543210)" value="9876543210" style="flex:1; padding:8px 10px; border:1px solid #ced4da; border-radius:6px; font-size:14px;">
+          <button id="sendOtpBtn" type="button" style="background:#2d6a4f; color:#fff; border:none; padding:8px 12px; border-radius:6px; font-weight:600; cursor:pointer;">Send OTP</button>
+        </div>
+
+        <!-- Live OTP Display on Screen -->
+        <div id="otpOnScreen" style="display:none; margin-top:8px; padding:8px; background:#fff3bf; border-radius:6px; color:#d9480f; font-weight:bold; font-size:14px; text-align:center;">
+          ✨ Demo OTP: <span id="displayedOtp" style="letter-spacing:2px; font-size:16px;">------</span>
+        </div>
+
+        <!-- Enter Code Box (Revealed after Send OTP) -->
+        <div id="verifyBox" style="display:none; margin-top:8px;">
+          <div style="display:flex; gap:8px;">
+            <input id="otpCodeInput" type="text" placeholder="6-digit OTP" maxlength="6" style="flex:1; padding:8px 10px; border:1px solid #ced4da; border-radius:6px; font-size:15px; font-weight:bold; letter-spacing:2px; text-align:center;">
+            <button id="verifyOtpBtn" type="button" style="background:#f25c05; color:#fff; border:none; padding:8px 14px; border-radius:6px; font-weight:bold; cursor:pointer;">Login</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Standard Password Form -->
+      <form id="customerLoginForm" class="login-form">
+        <div style="text-align:center; margin:10px 0; color:#888; font-size:12px; text-transform:uppercase;">— Or Login with Password —</div>
+        <div class="form-group">
+          <label>Email or Phone Number</label>
+          <input id="customerIdentifier" type="text" placeholder="name@example.com or 9876543210">
+        </div>
+
+        <div class="form-group" id="pwdGroup">
+          <label>Password</label>
+          <input id="customerPassword" type="password" placeholder="••••••••">
+        </div>
+
+        <button type="submit" id="customerSubmitBtn" class="btn-submit customer-submit">Sign In as Customer</button>
+      </form>
+
+      <div id="loginFeedback" style="display:none; margin-top:12px; padding:10px; border-radius:6px; font-size:14px; text-align:center;"></div>
+    </div>
+  </div>
+
+  <script src="api.js"></script>
+  <script>
+    const feedback = document.getElementById('loginFeedback');
+    const autoBanner = document.getElementById('autoLoginBanner');
+    const demoPhone = document.getElementById('demoPhone');
+    const sendOtpBtn = document.getElementById('sendOtpBtn');
+    const otpOnScreen = document.getElementById('otpOnScreen');
+    const displayedOtp = document.getElementById('displayedOtp');
+    const verifyBox = document.getElementById('verifyBox');
+    const otpCodeInput = document.getElementById('otpCodeInput');
+    const verifyOtpBtn = document.getElementById('verifyOtpBtn');
+
+    const showMsg = (msg, isError = false) => {
+      feedback.style.display = 'block';
+      feedback.style.background = isError ? '#ffe3e3' : '#e6fcf5';
+      feedback.style.color = isError ? '#c92a2a' : '#0ca678';
+      feedback.textContent = msg;
+    };
+
+    // Auto-Login: Check existing token on page load
+    window.addEventListener('DOMContentLoaded', async () => {
+      const token = BiteShareAPI.getToken();
+      if (token) {
+        autoBanner.style.display = 'block';
+        autoBanner.textContent = 'Verifying saved login session...';
+        try {
+          const res = await BiteShareAPI.auth.me();
+          if (res.success && res.user) {
+            autoBanner.textContent = `Welcome back, ${res.user.name}! Redirecting to home...`;
+            setTimeout(() => { window.location.href = 'index.html'; }, 800);
+            return;
+          }
+        } catch (err) {
+          console.warn('Session expired or invalid, clearing storage.');
+          BiteShareAPI.clearToken();
+        }
+        autoBanner.style.display = 'none';
+      }
+    });
+
+    // Send Demo OTP
+    sendOtpBtn.addEventListener('click', async () => {
+      const phone = demoPhone.value.trim();
+      if (!phone) return showMsg('Please enter a phone number', true);
+
+      try {
+        sendOtpBtn.disabled = true;
+        sendOtpBtn.textContent = 'Sending...';
+        const res = await BiteShareAPI.auth.otpRequest(phone);
+
+        // Display OTP on screen for demo
+        const code = res.otp || '123456';
+        displayedOtp.textContent = code;
+        otpOnScreen.style.display = 'block';
+        verifyBox.style.display = 'block';
+        otpCodeInput.value = code; // Pre-fill for convenience
+        showMsg(`Demo OTP generated: ${code} (Valid for 5 mins)`, false);
+      } catch (err) {
+        showMsg(err.message, true);
+      } finally {
+        sendOtpBtn.disabled = false;
+        sendOtpBtn.textContent = 'Resend';
+      }
+    });
+
+    // Verify Demo OTP
+    verifyOtpBtn.addEventListener('click', async () => {
+      const phone = demoPhone.value.trim();
+      const code = otpCodeInput.value.trim();
+      if (!code) return showMsg('Please enter the OTP', true);
+
+      try {
+        verifyOtpBtn.disabled = true;
+        verifyOtpBtn.textContent = 'Logging in...';
+        const res = await BiteShareAPI.auth.otpVerify(phone, code, 'customer');
+        showMsg('OTP Verified! Welcome to BiteShare.', false);
+        setTimeout(() => { window.location.href = 'index.html'; }, 800);
+      } catch (err) {
+        showMsg(err.message, true);
+        verifyOtpBtn.disabled = false;
+        verifyOtpBtn.textContent = 'Login';
+      }
+    });
+
+    // Standard Password Login
+    document.getElementById('customerLoginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const identifier = document.getElementById('customerIdentifier').value.trim();
+      const pwd = document.getElementById('customerPassword').value;
+
+      try {
+        const submitBtn = document.getElementById('customerSubmitBtn');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Signing in...';
+        await BiteShareAPI.customer.login(identifier, pwd);
+        showMsg('Login successful! Redirecting...', false);
+        setTimeout(() => { window.location.href = 'index.html'; }, 800);
+      } catch (err) {
+        showMsg(err.message, true);
+        document.getElementById('customerSubmitBtn').disabled = false;
+        document.getElementById('customerSubmitBtn').textContent = 'Sign In as Customer';
+      }
+    });
+  </script>
+</body>
+</html>

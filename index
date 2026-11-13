@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BiteShare | Nourish Together</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="navbar">
+    <div class="nav-left">
+      <a href="index.html" class="logo">
+        <svg class="bowl-logo" viewBox="0 0 100 100">
+          <path class="steam steam-1" d="M35 35 Q40 25 35 15" stroke="#f25c05" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path class="steam steam-2" d="M50 35 Q55 25 50 15" stroke="#f25c05" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path class="steam steam-3" d="M65 35 Q70 25 65 15" stroke="#f25c05" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M20 45 C20 75 80 75 80 45 Z" fill="#2d6a4f"/>
+          <line x1="25" y1="45" x2="75" y2="45" stroke="#1b4332" stroke-width="3"/>
+          <circle cx="50" cy="40" r="4" fill="#f25c05"/>
+        </svg>
+        <div class="logo-text">
+          <span class="brand-name">Bite<span class="highlight">Share</span></span>
+          <span class="tagline">NOURISH TOGETHER</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- CENTER NAVIGATION BUTTONS -->
+    <nav class="nav-center">
+      <a href="#available-meals" class="nav-btn active">Available Meals</a>
+      <a href="#post-meal" class="nav-btn">Post Meal</a>
+      <a href="ngos.html" class="nav-btn">NGOs</a>
+      <a href="about.html" class="nav-btn">About</a>
+      <a href="other.html" class="nav-btn">Other</a>
+    </nav>
+
+    <!-- TOP RIGHT LOGIN BUTTONS -->
+    <div class="nav-right">
+      <a href="customer-login.html" class="auth-btn customer-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        Customer Login
+      </a>
+      <a href="community-login.html" class="auth-btn community-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-3-3.87"></path><path d="M9 21v-2a4 4 0 0 1 3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path><circle cx="9" cy="7" r="4"></circle></svg>
+        Community Login
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <main class="container">
+    <section class="hero-grid">
+      <!-- Left Hero Card -->
+      <div class="card hero-card-left">
+        <span class="badge green-badge">● Zero Hunger • Zero Waste Revolution</span>
+        <h1>Connecting Extra Bites to <span class="text-green">Needy Hearts</span> & <span class="text-orange">Shelters</span>.</h1>
+        <p class="description">
+          Welcome to <strong>BiteShare</strong>—the community-powered food rescue ecosystem. We turn surplus dishes from local restaurants, bakeries, caterers, and generous homes into life-saving sustenance for nearby families and vetted NGOs.
+        </p>
+        <div class="hero-actions">
+          <a href="#available-meals" class="btn btn-orange">Explore Available Meals →</a>
+          <a href="#post-meal" class="btn btn-outline-green">Post a Surplus Meal +</a>
+        </div>
+      </div>
+
+      <!-- Right Quote Card -->
+      <div class="card hero-card-right">
+        <div class="quote-header">
+          <span class="quote-icon">“</span>
+          <span class="badge orange-outline-badge">VOICE OF COMPASSION</span>
+        </div>
+        <blockquote class="main-quote">
+          “A shared bite is love made visible. No plate should ever be empty while another table overflows.”
+        </blockquote>
+        <p class="quote-author">— The BiteShare Creed</p>
+        
+        <hr class="divider">
+
+        <div class="sub-quote-box">
+          <h3>🌱 Why Every Bite Matters</h3>
+          <p>Food is dignity, comfort, and community. When you share a meal, you do more than satisfy hunger—you tell someone that they are seen, valued, and cared for.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PILLARS SECTION -->
+    <section class="pillars-section">
+      <div class="center-badge-wrapper">
+        <span class="badge orange-outline-badge">HOW BITESHARE BRIDGES THE GAP</span>
+      </div>
+      <h2 class="section-title">A Smarter, Kinder Way To Distribute Surplus Food</h2>
+      <p class="section-subtitle">Every day tons of fresh, wholesome food is discarded simply because there wasn't an instant, safe channel to connect it with hungry hands. BiteShare changes this narrative with three simple pillars:</p>
+
+      <div class="pillars-grid">
+        <div class="card pillar-card">
+          <div class="icon">⚡</div>
+          <h3>Real-Time Geo Alerts</h3>
+          <p>When a local caterer or restaurant has surplus food, a ping is immediately dispatched to nearby recipients and volunteers within a 5km radius.</p>
+        </div>
+        <div class="card pillar-card">
+          <div class="icon">🛡️</div>
+          <h3>Strict Food Safety</h3>
+          <p>All donors declare preparation times and temperature guidelines, guaranteeing that distributed food is always fresh, clean, and nutritious.</p>
+        </div>
+        <div class="card pillar-card">
+          <div class="icon">🤝</div>
+          <h3>Vetted NGO Logistics</h3>
+          <p>Large banquet and corporate donations are routed directly through certified NGO logistics teams equipped with insulated transport vans.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECOND PAGE / COMMUNITY MEAL HUB SECTION -->
+    <section class="meal-hub-section">
+      <h2 class="section-title">The <span class="text-orange">Community</span> <span class="text-green">Meal Hub</span></h2>
+      <p class="section-subtitle">Find nourishing meals ready for pickup today, or post your surplus food in less than a minute.</p>
+
+      <div class="hub-grid">
+        <!-- AVAILABLE MEALS SECTION -->
+        <div class="card hub-card" id="available-meals">
+          <div class="hub-card-header">
+            <span class="badge green-badge">● LIVE LISTINGS</span>
+            <span class="meta-count">14 Meals Near You</span>
+          </div>
+          <h2>Explore All Available Meals</h2>
+          <p class="card-desc">Freshly cooked meals, packaged grocery kits, and bakery items available right now in your locality.</p>
+
+          <div class="filter-pills">
+            <button class="pill active">All Meals</button>
+            <button class="pill">Vegetarian</button>
+            <button class="pill">Bakery & Bread</button>
+            <button class="pill">Cooked Dinners</button>
+            <button class="pill">Fresh Fruits</button>
+          </div>
+
+          <!-- Meal Items List -->
+          <div class="meal-item-list">
+            <div class="meal-item">
+              <div class="meal-img">🍲</div>
+              <div class="meal-details">
+                <h4>Fresh Rice & Lentil Bowls</h4>
+                <p>📍 Green Park (0.8 km) • ⏰ Ready until 9:30 PM</p>
+              </div>
+              <div class="meal-action">
+                <span class="portion-badge">12 Portions</span>
+                <a href="customer-login.html" class="btn btn-sm-outline">Claim Meal</a>
+              </div>
+            </div>
+
+            <div class="meal-item">
+              <div class="meal-img">🥖</div>
+              <div class="meal-details">
+                <h4>Artisan Sourdough & Baguettes</h4>
+                <p>📍 Sunshine Bakery (1.4 km) • ⏰ Ready until 10:00 PM</p>
+              </div>
+              <div class="meal-action">
+                <span class="portion-badge">25 Portions</span>
+                <a href="customer-login.html" class="btn btn-sm-outline">Claim Meal</a>
+              </div>
+            </div>
+
+            <div class="meal-item">
+              <div class="meal-img">🥗</div>
+              <div class="meal-details">
+                <h4>Fresh Garden Salad & Fruit Boxes</h4>
+                <p>📍 Community Hall (2.1 km) • ⏰ Ready until 8:45 PM</p>
+              </div>
+              <div class="meal-action">
+                <span class="portion-badge">8 Portions</span>
+                <a href="customer-login.html" class="btn btn-sm-outline">Claim Meal</a>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn-green btn-full">Browse All 14 Nearby Meals →</button>
+        </div>
+
+        <!-- POST A MEAL SECTION -->
+        <div class="card hub-card orange-border-card" id="post-meal">
+          <div class="quote-banner">
+            <p>“When you have more than you need, build a longer table, not a higher fence.”</p>
+            <span>— Food Sharing Wisdom</span>
+          </div>
+
+          <h2>Post a Surplus Meal</h2>
+          <p class="card-desc">Have leftover catering food, fresh home servings, or surplus inventory? Fill out details below to notify recipients instantly.</p>
+
+          <form class="post-meal-form" onsubmit="event.preventDefault(); alert('Please login to post meals!');">
+            <div class="form-group">
+              <label>Meal Description / Title *</label>
+              <input type="text" placeholder="e.g., 20 Veg Biryani boxes, fresh bread" required>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Number of Portions *</label>
+                <input type="number" placeholder="e.g., 15" required>
+              </div>
+              <div class="form-group">
+                <label>Dietary Category *</label>
+                <select required>
+                  <option value="">Select Category</option>
+                  <option value="veg">Vegetarian</option>
+                  <option value="non-veg">Non-Vegetarian</option>
+                  <option value="vegan">Vegan</option>
+                  <option value="bakery">Bakery & Packaged</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Pickup Location *</label>
+                <input type="text" placeholder="Street, landmark, or city" required>
+              </div>
+              <div class="form-group">
+                <label>Pickup Deadline *</label>
+                <input type="time" required>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-orange btn-full">🚀 Post Surplus Meal Now</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 BiteShare Community Initiative. Built to end waste and feed hope.</p>
+  </footer>
+
+</body>
+</html>

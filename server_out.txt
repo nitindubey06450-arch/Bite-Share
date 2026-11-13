@@ -1,0 +1,3 @@
+2026-11-03 17:11:09 [32minfo[39m 🍛  BiteShare server  →  http://localhost:5000
+2026-11-03 17:11:09 [32minfo[39m 🩺  Health check     →  http://localhost:5000/api/health
+2026-11-03 17:11:09 [32minfo[39m 📡  Socket.io        →  ws://localhost:5000

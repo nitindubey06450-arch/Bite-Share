@@ -1,0 +1,41 @@
+name: BiteShare Backend CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mongodb:
+        image: mongo:6.0
+        ports:
+          - 27017:27017
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: server/package-lock.json
+
+      - name: Install Dependencies
+        run: npm --prefix server ci
+
+      - name: Run Test Suite
+        env:
+          NODE_ENV: test
+          PORT: 5001
+          MONGO_URI: mongodb://localhost:27017/biteshare_test
+          JWT_SECRET: test_jwt_secret_key_ci
+          DEMO_MODE: 'true'
+          AI_API_KEY: test_dummy_key
+        run: npm --prefix server test

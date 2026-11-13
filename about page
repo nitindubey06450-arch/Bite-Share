@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About BiteShare | Our Story</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="about.css">
+</head>
+<body>
+  <header class="navbar">
+    <a href="index.html" class="logo"><span class="brand-name">Bite<span class="highlight">Share</span></span></a>
+    <nav class="nav-center">
+      <a href="index.html" class="nav-btn">Home</a>
+      <a href="about.html" class="nav-btn active">About</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card about-hero">
+      <h1>Our Mission: Zero Waste, Zero Hunger.</h1>
+      <p>BiteShare was founded with a single belief: No food should end up in a landfill while people in our local community go hungry.</p>
+    </section>
+
+    <div class="stats-row">
+      <div class="card stat-card">
+        <h2>18,650+</h2>
+        <p>Meals Rescued</p>
+      </div>
+      <div class="card stat-card">
+        <h2>140+</h2>
+        <p>Partner Bakeries & Restaurants</p>
+      </div>
+      <div class="card stat-card">
+        <h2>4,200+</h2>
+        <p>Lives Impacted</p>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

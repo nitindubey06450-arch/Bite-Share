@@ -1,0 +1,203 @@
+/* NGO PAGE SPECIFIC STYLES */
+
+.ngo-hero-card {
+  background: linear-gradient(135deg, var(--card-beige) 0%, #f4ede1 100%);
+  border-left: 6px solid var(--green-primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.ngo-hero-content {
+  flex: 1.5;
+}
+
+.ngo-hero-content h1 {
+  font-size: 2.2rem;
+  margin: 0.8rem 0;
+  line-height: 1.2;
+}
+
+.ngo-hero-content p {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.ngo-hero-stats {
+  display: flex;
+  gap: 1.5rem;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.ngo-stat-box {
+  background: var(--bg-beige);
+  padding: 1.2rem 1.5rem;
+  border-radius: 14px;
+  border: 1px solid var(--border-beige);
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+}
+
+.ngo-stat-box h3 {
+  font-size: 1.8rem;
+  color: var(--orange-primary);
+  font-weight: 800;
+}
+
+.ngo-stat-box p {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--green-primary);
+  margin-top: 4px;
+}
+
+/* MAIN GRID LAYOUT */
+.ngo-main-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.ngo-form-card {
+  border-top: 5px solid var(--orange-primary);
+}
+
+.form-header-badge {
+  margin-bottom: 0.5rem;
+}
+
+.ngo-form-card h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.4rem;
+  color: var(--text-dark);
+}
+
+.form-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.ngo-drive-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.ngo-drive-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ngo-drive-form label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.ngo-drive-form input {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border-beige);
+  background: var(--bg-beige);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.ngo-drive-form input:focus {
+  border-color: var(--orange-primary);
+}
+
+.ngo-drive-form .form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+/* ECOSYSTEM CARD */
+.ngo-ecosystem-card {
+  border-top: 5px solid var(--green-primary);
+}
+
+.ngo-ecosystem-card h2 {
+  font-size: 1.6rem;
+  margin: 0.8rem 0;
+  color: var(--text-dark);
+}
+
+.ecosystem-intro {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.ecosystem-features {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.feature-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: var(--bg-beige);
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-beige);
+}
+
+.feature-icon {
+  font-size: 1.6rem;
+  background: #d8f3dc;
+  padding: 8px;
+  border-radius: 10px;
+  line-height: 1;
+}
+
+.feature-item h4 {
+  font-size: 0.95rem;
+  color: var(--green-primary);
+  margin-bottom: 2px;
+}
+
+.feature-item p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.ngo-cta-box {
+  background: #fdf2e9;
+  border: 1px dashed var(--orange-primary);
+  padding: 1.2rem;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.ngo-cta-box p {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  color: var(--text-dark);
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 900px) {
+  .ngo-hero-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .ngo-hero-stats {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .ngo-main-grid {
+    grid-template-columns: 1fr;
+  }
+}

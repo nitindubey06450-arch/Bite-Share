@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BiteShare | Nourish Together</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Leaflet Map CSS (OpenStreetMap) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+
+  <!-- PAGE 1 FULL-SCREEN WRAPPER (100VH) -->
+  <div class="hero-page-wrapper">
+    <!-- TOP NAVIGATION BAR -->
+    <header class="navbar">
+      <div class="nav-left">
+        <a href="index.html" class="logo">
+          <svg class="bowl-logo" viewBox="0 0 100 100">
+            <path class="steam steam-1" d="M35 35 Q40 25 35 15" stroke="#f25c05" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <path class="steam steam-2" d="M50 35 Q55 25 50 15" stroke="#f25c05" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <path class="steam steam-3" d="M65 35 Q70 25 65 15" stroke="#f25c05" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <path d="M20 45 C20 75 80 75 80 45 Z" fill="#2d6a4f"/>
+            <line x1="25" y1="45" x2="75" y2="45" stroke="#1b4332" stroke-width="3"/>
+            <circle cx="50" cy="40" r="4" fill="#f25c05"/>
+          </svg>
+          <div class="logo-text">
+            <span class="brand-name">Bite<span class="highlight">Share</span></span>
+            <span class="tagline">NOURISH TOGETHER</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- CENTER NAVIGATION BUTTONS -->
+      <nav class="nav-center">
+        <a href="#available-meals" class="nav-btn">Available Meals</a>
+        <a href="#post-meal" class="nav-btn">Post Meal</a>
+        <a href="tracking.html" class="nav-btn" style="font-weight:600;color:#f25c05;">📍 Live Track</a>
+        <a href="ngo page.html" class="nav-btn">NGOs</a>
+        <a href="about page.html" class="nav-btn">About</a>
+        <a href="other page.html" class="nav-btn">Other</a>
+      </nav>
+
+      <!-- TOP RIGHT LOGIN BUTTONS -->
+      <div class="nav-right" id="navAuthSection">
+        <a href="rider login.html" class="auth-btn rider-btn" style="background:#2b6e4e; color:white; border-color:#2b6e4e;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6h-3l-3 5.5h6z"/><path d="M12 17.5V14l-2-2"/></svg>
+          Rider Login
+        </a>
+        <a href="customer login.html" class="auth-btn customer-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          Customer Login
+        </a>
+        <a href="community login.html" class="auth-btn community-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-3-3.87"></path><path d="M9 21v-2a4 4 0 0 1 3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path><circle cx="9" cy="7" r="4"></circle></svg>
+          Community Login
+        </a>
+      </div>
+    </header>
+
+    <!-- FIRST PAGE CONTENT ONLY -->
+    <main class="container hero-container">
+      <section class="about-top-plain">
+        <div class="about-plain-header">
+          <h2>Bridging Surplus Meals & Hungry Hearts in Real-Time</h2>
+        </div>
+        <p class="about-plain-text">
+          BiteShare is a community-driven food rescue platform connecting extra dishes from local bakeries, caterers, and homes to nearby shelters and families in need.
+        </p>
+        <div class="about-inline-stats">
+          <span>🔥 <strong id="liveMealsCount">18,650+</strong> Meals Rescued</span>
+          <span>•</span>
+          <span>🤝 <strong>140+</strong> Partner NGOs</span>
+          <span>•</span>
+          <span>🌱 <strong id="liveWasteCount">9,325 kg</strong> Waste Prevented</span>
+        </div>
+      </section>
+
+      <section class="hero-grid">
+        <div class="card hero-card-left">
+          <span class="badge green-badge">● Zero Hunger • Zero Waste Revolution</span>
+          <h1>Connecting Extra Bites to <span class="text-green">Needy Hearts</span> & <span class="text-orange">Shelters</span>.</h1>
+          <p class="description">
+            Welcome to <strong>BiteShare</strong>—the community-powered food rescue ecosystem turning surplus dishes into life-saving sustenance for nearby families and vetted NGOs.
+          </p>
+          <div class="hero-actions">
+            <a href="#available-meals" class="btn btn-orange">Explore Available Meals →</a>
+            <a href="#post-meal" class="btn btn-outline-green">Post a Surplus Meal +</a>
+          </div>
+        </div>
+
+        <div class="card hero-card-right">
+          <div class="quote-header">
+            <span class="quote-icon">“</span>
+            <span class="badge green-badge">COMMUNITY CREED</span>
+          </div>
+          <blockquote class="main-quote">
+            “A shared bite is love made visible. No plate should ever be empty while another table overflows.”
+          </blockquote>
+          <p class="quote-author">— The BiteShare Creed</p>
+          <hr class="divider">
+          <div class="sub-quote-box">
+            <h3>🌱 Why Every Bite Matters</h3>
+            <p>Food is dignity, comfort, and community. Sharing a meal tells someone that they are seen, valued, and cared for.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- EVERYTHING BELOW IS VISIBLE UPON SCROLLING -->
+  <main class="container">
+
+    <!-- 1. AI FOOD NUTRITION & SHELF-LIFE ANALYZER (OpenAI gpt-4o-mini) -->
+    <section class="card ai-search-card" style="margin-bottom: 2rem; background: #ffffff; border: 1px solid var(--border-beige); border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 8px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 1.4rem;">🔬</span>
+          <h3 style="color: var(--green-primary); margin: 0; font-size: 1.25rem;">AI Food Nutrition & Shelf-Life Analyzer</h3>
+          <span class="badge green-badge" style="font-size: 11px;">Powered by OpenAI gpt-4o-mini</span>
+        </div>
+        <div id="gpsStatusBadge" style="font-size: 12px; color: var(--text-muted); background: var(--card-beige); padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border-beige);">
+          📍 Checking Location...
+        </div>
+      </div>
+      <form id="aiAnalyzeForm" style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <input type="text" id="aiFoodInput" placeholder="Enter food name (e.g. 'Cooked Rice', 'Veg Biryani', 'Sourdough Bread', 'Dal Makhani')..." style="flex: 1; min-width: 260px; padding: 12px 16px; border: 1.5px solid var(--border-beige); border-radius: 8px; font-size: 15px; outline: none;" required>
+        <button type="submit" id="aiAnalyzeBtn" class="btn btn-orange" style="padding: 12px 24px; font-weight: 600; cursor: pointer;">✨ Analyze Food</button>
+      </form>
+
+      <!-- Analysis Result Card -->
+      <div id="aiAnalysisCard" style="display: none; margin-top: 1.2rem; padding: 1.2rem; background: #fdfbf7; border-left: 4px solid #f25c05; border-radius: 8px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <h4 id="analyzedFoodTitle" style="margin:0; color:#2d6a4f; font-size:1.15rem;"></h4>
+          <span style="background:#e6fcf5; color:#0ca678; padding:3px 8px; border-radius:12px; font-size:12px; font-weight:bold;">Verified AI Analysis</span>
+        </div>
+        <p id="analyzedExplanation" style="margin:6px 0 12px; font-size:14px; color:#495057; line-height:1.5;"></p>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:10px; margin-bottom:12px;">
+          <div style="background:#fff; padding:10px; border-radius:6px; border:1px solid #e9ecef;">
+            <span style="font-size:12px; color:#868e96; text-transform:uppercase;">💪 Protein</span>
+            <div id="analyzedProtein" style="font-weight:bold; color:#2d6a4f; margin-top:2px;"></div>
+          </div>
+          <div style="background:#fff; padding:10px; border-radius:6px; border:1px solid #e9ecef;">
+            <span style="font-size:12px; color:#868e96; text-transform:uppercase;">🔥 Calories</span>
+            <div id="analyzedCalories" style="font-weight:bold; color:#f25c05; margin-top:2px;"></div>
+          </div>
+          <div style="background:#fff; padding:10px; border-radius:6px; border:1px solid #e9ecef;">
+            <span style="font-size:12px; color:#868e96; text-transform:uppercase;">🥗 Main Nutrients</span>
+            <div id="analyzedNutrients" style="font-weight:600; font-size:13px; color:#343a40; margin-top:2px;"></div>
+          </div>
+        </div>
+        <div style="background:#fff9db; padding:10px 14px; border-radius:6px; color:#d9480f; font-size:13.5px; border:1px solid #ffe066;">
+          <strong>⏳ Safe Expiry & Storage Guidance:</strong> <span id="analyzedShelfLife"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. SHARED MAP SECTION (Leaflet + OpenStreetMap) -->
+    <section class="card map-section" style="margin-bottom: 2rem; background: #fff; border-radius: 12px; padding: 1.5rem; border: 1px solid var(--border-beige);">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+        <div>
+          <h3 style="margin:0; color:#2d6a4f;">🗺️ Live Location & Meal Rescue Map</h3>
+          <p style="margin:4px 0 0; font-size:13px; color:#666;">Explore surplus meals ready for pickup nearby.</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <label style="display:flex; align-items:center; gap:6px; font-size:14px; cursor:pointer; font-weight:600;">
+            <input type="checkbox" id="shareLocationToggle" checked> Share My Location
+          </label>
+          <button id="locateMeBtn" type="button" class="btn btn-sm-outline" style="padding:6px 12px; font-size:13px;">📍 Use My Location</button>
+        </div>
+      </div>
+      <div id="locationDeniedAlert" style="display:none; padding:10px; background:#fff3bf; color:#d9480f; border-radius:6px; font-size:13.5px; margin-bottom:10px;">
+        ⚠️ <strong>Location permission denied / स्थान अनुमति अस्वीकृत:</strong> Please enable GPS access in your browser to view nearby meals. / कृपया आस-पास के भोजन देखने के लिए अपने ब्राउज़र में स्थान सक्षम करें।
+      </div>
+      <div id="biteshareMap" style="height: 320px; border-radius: 8px; border: 1px solid #ddd; z-index: 1;"></div>
+    </section>
+
+    <!-- 3. RESERVATION NOTIFICATION BANNER -->
+    <div id="reservationBanner" style="display:none; background:#e6fcf5; border:1.5px solid #2d6a4f; border-radius:10px; padding:16px; margin-bottom:2rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+        <div>
+          <h4 style="margin:0; color:#2d6a4f;">🎉 Meal Reserved Successfully!</h4>
+          <p style="margin:4px 0 0; font-size:14px; color:#333;">Present this 4-digit code to the community kitchen at pickup:</p>
+        </div>
+        <div style="background:#fff; border:2px dashed #f25c05; padding:8px 18px; border-radius:8px; font-size:22px; font-weight:bold; letter-spacing:4px; color:#f25c05;" id="bannerHandoffCode">
+          ----
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. COMMUNITY MEAL HUB & LIVE LISTINGS -->
+    <section class="meal-hub-section">
+      <div class="center-title">
+        <h2 class="section-title">The <span class="text-orange">Community</span> <span class="text-green">Meal Hub</span></h2>
+        <p class="section-subtitle">Find nourishing meals ready for pickup today, or post your surplus food in less than a minute.</p>
+      </div>
+
+      <div class="hub-grid">
+        <!-- AVAILABLE MEALS SECTION -->
+        <div class="card hub-card" id="available-meals">
+          <div class="hub-card-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
+            <span class="badge green-badge">● LIVE LISTINGS</span>
+            <div style="display:flex; gap:6px;">
+              <button class="cat-filter-btn active" data-cat="all" style="padding:4px 8px; font-size:12px; border-radius:4px; border:1px solid #2d6a4f; background:#2d6a4f; color:#fff; cursor:pointer;">All</button>
+              <button class="cat-filter-btn" data-cat="veg" style="padding:4px 8px; font-size:12px; border-radius:4px; border:1px solid #2d6a4f; background:#fff; color:#2d6a4f; cursor:pointer;">Veg Only</button>
+              <button class="cat-filter-btn" data-cat="non-veg" style="padding:4px 8px; font-size:12px; border-radius:4px; border:1px solid #2d6a4f; background:#fff; color:#2d6a4f; cursor:pointer;">Non-Veg</button>
+            </div>
+          </div>
+          <h2>Explore Available Meals</h2>
+          <p class="card-desc">Freshly cooked meals, packaged grocery kits, and bakery items available right now.</p>
+
+          <div id="dynamicMealList" class="meal-item-list">
+            <!-- Dynamically populated or default fallback items -->
+            <div class="meal-item" id="sample-item-1">
+              <div class="meal-img">🍲</div>
+              <div class="meal-details">
+                <h4>Fresh Rice & Lentil Bowls</h4>
+                <p>📍 Green Park (0.8 km) • ⏰ Ready until 9:30 PM • <span style="color:#2b6e4e;font-weight:600;">Veg</span></p>
+              </div>
+              <div class="meal-action">
+                <span class="portion-badge">12 Portions</span>
+                <button class="btn btn-sm-outline analyze-listing-btn" data-name="Rice and Lentil Bowl">🔬 Analyze</button>
+                <button class="btn btn-sm-outline reserve-btn" data-title="Fresh Rice & Lentil Bowls" data-id="sample-1">Claim / Reserve</button>
+              </div>
+            </div>
+
+            <div class="meal-item" id="sample-item-2">
+              <div class="meal-img">🥖</div>
+              <div class="meal-details">
+                <h4>Artisan Sourdough & Baguettes</h4>
+                <p>📍 Sunshine Bakery (1.4 km) • ⏰ Ready until 10:00 PM • <span style="color:#2b6e4e;font-weight:600;">Veg</span></p>
+              </div>
+              <div class="meal-action">
+                <span class="portion-badge">25 Portions</span>
+                <button class="btn btn-sm-outline analyze-listing-btn" data-name="Sourdough Baguette">🔬 Analyze</button>
+                <button class="btn btn-sm-outline reserve-btn" data-title="Artisan Sourdough & Baguettes" data-id="sample-2">Claim / Reserve</button>
+              </div>
+            </div>
+
+            <div class="meal-item" id="sample-item-3">
+              <div class="meal-img">🥗</div>
+              <div class="meal-details">
+                <h4>Fresh Garden Salad Boxes</h4>
+                <p>📍 Community Hall (2.1 km) • ⏰ Ready until 8:45 PM • <span style="color:#2b6e4e;font-weight:600;">Veg</span></p>
+              </div>
+              <div class="meal-action">
+                <span class="portion-badge">8 Portions</span>
+                <button class="btn btn-sm-outline analyze-listing-btn" data-name="Garden Salad">🔬 Analyze</button>
+                <button class="btn btn-sm-outline reserve-btn" data-title="Fresh Garden Salad Boxes" data-id="sample-3">Claim / Reserve</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- POST A MEAL SECTION -->
+        <div class="card hub-card orange-border-card" id="post-meal">
+          <div class="quote-banner">
+            <p>“When you have more than you need, build a longer table, not a higher fence.”</p>
+            <span>— Food Sharing Wisdom</span>
+          </div>
+
+          <h2>Post a Surplus Meal</h2>
+          <p class="card-desc">Have leftover catering food, bakery, or surplus meals? Community members can post below.</p>
+
+          <form id="postMealForm" class="post-meal-form">
+            <div class="form-group">
+              <label>Meal Description / Title *</label>
+              <input id="postTitle" type="text" placeholder="e.g., 20 Veg Biryani boxes, fresh bread" required>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Number of Portions *</label>
+                <input id="postQuantity" type="number" min="1" placeholder="e.g., 15" required>
+              </div>
+              <div class="form-group">
+                <label>Dietary Category *</label>
+                <select id="postCategory" required>
+                  <option value="veg">Vegetarian</option>
+                  <option value="non-veg">Non-Vegetarian</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Pickup Location Address</label>
+                <input id="postPickupAddress" type="text" placeholder="Defaults to your current GPS position">
+              </div>
+              <div class="form-group">
+                <label>Pickup Ready Until (Time) *</label>
+                <input id="postPickupTime" type="time" value="21:00" required>
+              </div>
+            </div>
+
+            <button type="submit" id="postMealBtn" class="btn btn-orange btn-full">🚀 Post Surplus Meal Now</button>
+            <div id="postFeedback" style="display:none; margin-top:8px; padding:8px; border-radius:6px; font-size:13.5px; text-align:center;"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4B. MY SURPLUS MEALS (Community users: manage your listings) -->
+    <section class="card hub-card" id="my-meals" style="margin-bottom: 2rem;">
+      <div class="hub-card-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
+        <span class="badge green-badge">📋 MY LISTINGS</span>
+        <button id="refreshMyMeals" class="btn btn-sm-outline" style="font-size:12px;">🔄 Refresh</button>
+      </div>
+      <h2>My Surplus Meals</h2>
+      <p class="card-desc">View and manage your posted meal listings. Only visible if you are logged in as a Community member.</p>
+      <div id="myMealsList" class="meal-item-list">
+        <p id="myMealsPlaceholder" style="color:#888; font-size:14px; text-align:center; padding:16px;">Log in as a Community user and post meals to see them here.</p>
+      </div>
+    </section>
+
+    <!-- 5. VERIFY PICKUP HANDOFF (Community Helper Tool) -->
+    <section class="card" style="margin-bottom: 2rem; background: #fdfbf7; border: 1px dashed #2d6a4f; border-radius: 12px; padding: 1.5rem;">
+      <h3 style="color:#2d6a4f; margin-top:0;">🤝 Community Pickup Verification</h3>
+      <p style="font-size:14px; color:#555; margin-bottom:12px;">When a customer arrives to collect a reserved meal, enter the 4-digit code provided on their screen:</p>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; max-width:480px;">
+        <input type="text" id="handoffCodeInput" placeholder="4-digit code (e.g. 4921)" maxlength="4" style="flex:1; padding:10px 14px; border:1px solid #ced4da; border-radius:6px; font-size:16px; font-weight:bold; letter-spacing:2px; text-align:center;">
+        <button id="verifyHandoffBtn" type="button" class="btn btn-orange" style="padding:10px 18px; font-weight:bold;">Verify Handoff</button>
+      </div>
+      <div id="handoffResult" style="display:none; margin-top:10px; padding:10px; border-radius:6px; font-size:14px;"></div>
+    </section>
+
+  </main>
+
+  <!-- EXPANDED FOOTER -->
+  <footer class="main-footer">
+    <div class="footer-grid">
+      <div class="footer-col brand-col">
+        <h3>Bite<span class="highlight">Share</span></h3>
+        <p>Connecting extra bites to needy hearts. A community-powered initiative built to end food waste and foster compassion.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#available-meals">Available Meals</a></li>
+          <li><a href="#post-meal">Post Surplus Meal</a></li>
+          <li><a href="tracking.html">Live Tracking</a></li>
+          <li><a href="ngo page.html">Verified NGOs Portal</a></li>
+          <li><a href="other page.html">Other Listings</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Portals & Login</h4>
+        <ul>
+          <li><a href="customer login.html">Customer Login</a></li>
+          <li><a href="community login.html">Community Login</a></li>
+          <li><a href="rider login.html">Rider Login</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col contact-col">
+        <h4>Get in Touch</h4>
+        <p>📍 Helpline: 1800-BITESHARE (Toll Free)</p>
+        <p>✉️ Support: help@biteshare.org</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 BiteShare Community Initiative. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Leaflet Map JS (OpenStreetMap) -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="api.js"></script>
+  <script>
+    let map = null;
+    let userMarker = null;
+    let listingMarkers = [];
+    let currentCoords = [28.5355, 77.3910]; // Default Delhi NCR
+    let isSharingLocation = true;
+    let activeListingIdForHandoff = null;
+
+    // ─── Map Initialization (Live Google Maps & Multi-Layer Tiles) ───────────
+    function initMap() {
+      if (typeof L === 'undefined') return;
+      map = L.map('biteshareMap', {
+        zoomControl: true,
+        scrollWheelZoom: true
+      }).setView(currentCoords, 13);
+
+      // Google Maps Live Roadmap Layer
+      const googleRoadmap = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+        maxZoom: 20,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+        attribution: '&copy; <a href="https://maps.google.com" target="_blank">Google Maps</a>'
+      });
+
+      // Google Maps Live Satellite / Hybrid Layer
+      const googleHybrid = L.tileLayer('https://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+        maxZoom: 20,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+        attribution: '&copy; <a href="https://maps.google.com" target="_blank">Google Maps</a>'
+      });
+
+      // High-performance CartoDB Voyager Layer
+      const cartoVoyager = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        maxZoom: 20,
+        subdomains: 'abcd',
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+      });
+
+      // Default: Google Maps Roadmap
+      googleRoadmap.addTo(map);
+
+      // Layer Control (Allows toggling between Google Maps, Satellite, and Carto)
+      L.control.layers({
+        '🗺️ Google Maps': googleRoadmap,
+        '🛰️ Google Satellite': googleHybrid,
+        '🌿 OpenStreetMap (Carto)': cartoVoyager
+      }, null, { position: 'topright' }).addTo(map);
+
+      // Load Google Maps API Key if configured in backend
+      fetch('/api/location/config')
+        .then(r => r.json())
+        .then(cfg => {
+          if (cfg.googleMapsApiKey && !window.google?.maps) {
+            const script = document.createElement('script');
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${cfg.googleMapsApiKey}&libraries=places`;
+            script.async = true;
+            document.head.appendChild(script);
+            console.log('✅ Google Maps API SDK initialized with live API key');
+          }
+        })
+        .catch(() => {});
+
+      // Add default sample listing pins
+      addListingPin(28.5355, 77.3910, 'Fresh Rice & Lentil Bowls (12 portions)');
+      addListingPin(28.5420, 77.3850, 'Artisan Sourdough & Baguettes (25 portions)');
+      addListingPin(28.5280, 77.4010, 'Fresh Garden Salad Boxes (8 portions)');
+    }
+
+    function addListingPin(lat, lng, title) {
+      if (!map) return;
+      const marker = L.marker([lat, lng], {
+        icon: L.divIcon({
+          className: 'listing-pin',
+          html: '<div style="background:#f25c05; color:#fff; padding:4px 8px; border-radius:12px; font-weight:bold; font-size:11px; white-space:nowrap; box-shadow:0 2px 6px rgba(0,0,0,0.3);">🍲 ' + title.slice(0, 20) + '</div>',
+          iconSize: [100, 30]
+        })
+      }).addTo(map);
+      marker.bindPopup(`<strong>${title}</strong><br><a href="#available-meals">View Details</a>`);
+      listingMarkers.push(marker);
+    }
+
+    function updateUserMarker(lat, lng) {
+      if (!map) return;
+      if (userMarker) {
+        userMarker.setLatLng([lat, lng]);
+      } else {
+        userMarker = L.marker([lat, lng], {
+          icon: L.divIcon({
+            className: 'user-pin',
+            html: '<div style="background:#2d6a4f; color:#fff; border:2px solid #fff; padding:5px 8px; border-radius:20px; font-weight:bold; font-size:11px; box-shadow:0 2px 8px rgba(0,0,0,0.4);">📍 You Are Here</div>',
+            iconSize: [90, 30]
+          })
+        }).addTo(map);
+      }
+      map.setView([lat, lng], 13);
+    }
+
+    // ─── Geolocation Tracking & Permission Handling ──────────────────────────
+    function startLocationWatch() {
+      if (!navigator.geolocation) return;
+      const badge = document.getElementById('gpsStatusBadge');
+      const alertBox = document.getElementById('locationDeniedAlert');
+
+      navigator.geolocation.watchPosition(
+        function(pos) {
+          if (!isSharingLocation) return;
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+          currentCoords = [lat, lng];
+
+          if (badge) {
+            badge.textContent = `📍 GPS: ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+            badge.style.color = '#2d6a4f';
+          }
+          if (alertBox) alertBox.style.display = 'none';
+
+          updateUserMarker(lat, lng);
+
+          // Update backend only when sharing is ON
+          if (isSharingLocation && BiteShareAPI.getToken()) {
+            BiteShareAPI.location.update(lat, lng).catch(() => {});
+          }
+        },
+        function(err) {
+          if (badge) badge.textContent = '📍 Location Denied';
+          if (alertBox) alertBox.style.display = 'block';
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 30000 }
+      );
+    }
+
+    // Toggle Location Sharing
+    document.getElementById('shareLocationToggle')?.addEventListener('change', function(e) {
+      isSharingLocation = e.target.checked;
+      const badge = document.getElementById('gpsStatusBadge');
+      if (!isSharingLocation) {
+        if (badge) badge.textContent = '📍 Location Sharing Paused';
+        if (userMarker && map) map.removeLayer(userMarker);
+        userMarker = null;
+      } else {
+        if (badge) badge.textContent = '📍 Location Sync Active';
+        updateUserMarker(currentCoords[0], currentCoords[1]);
+      }
+    });
+
+    document.getElementById('locateMeBtn')?.addEventListener('click', function() {
+      navigator.geolocation.getCurrentPosition(function(pos) {
+        currentCoords = [pos.coords.latitude, pos.coords.longitude];
+        updateUserMarker(pos.coords.latitude, pos.coords.longitude);
+      });
+    });
+
+    // ─── Impact Counter Fetch ────────────────────────────────────────────────
+    async function loadImpactCounters() {
+      try {
+        const res = await BiteShareAPI.impact.get();
+        const data = res.impact || res;
+        const meals = data.totalMealsSaved || data.mealsSaved || 18650;
+        const waste = data.foodWastePreventedKg || data.foodWasteKg || (meals * 0.5);
+
+        const mEl = document.getElementById('liveMealsCount');
+        const wEl = document.getElementById('liveWasteCount');
+        if (mEl) mEl.textContent = meals.toLocaleString() + '+';
+        if (wEl) wEl.textContent = waste.toLocaleString() + ' kg';
+      } catch (err) {
+        console.warn('Could not fetch impact counters:', err.message);
+      }
+    }
+
+    // ─── AI Food Analysis (OpenAI gpt-4o-mini) ────────────────────────────────
+    async function triggerAnalysis(foodName) {
+      if (!foodName) return;
+      const btn = document.getElementById('aiAnalyzeBtn');
+      const input = document.getElementById('aiFoodInput');
+      const card = document.getElementById('aiAnalysisCard');
+      const title = document.getElementById('analyzedFoodTitle');
+      const expl = document.getElementById('analyzedExplanation');
+      const prot = document.getElementById('analyzedProtein');
+      const cal = document.getElementById('analyzedCalories');
+      const nutr = document.getElementById('analyzedNutrients');
+      const shelf = document.getElementById('analyzedShelfLife');
+
+      input.value = foodName;
+      btn.disabled = true;
+      btn.textContent = 'Analyzing with AI... 🔬';
+
+      try {
+        let token = BiteShareAPI.getToken();
+        if (!token) {
+          const tempRes = await BiteShareAPI.auth.otpRequest('9876543210');
+          const verifyRes = await BiteShareAPI.auth.otpVerify('9876543210', tempRes.otp, 'customer');
+          token = verifyRes.token;
+        }
+
+        const res = await BiteShareAPI.ai.analyze(foodName);
+        const data = res.analysis;
+
+        card.style.display = 'block';
+        title.textContent = `🥗 Nutrition Profile: ${data.foodName}`;
+        expl.textContent = data.explanation;
+        prot.textContent = data.protein;
+        cal.textContent = data.calories;
+        nutr.textContent = data.mainNutrients;
+        shelf.textContent = typeof data.shelfLife === 'object'
+          ? `Room Temp: ${data.shelfLife.roomTemperatureSafetyTime || '2-4h'} • Refrigerator: ${data.shelfLife.refrigeratorStorageDuration || '3-4 days'}`
+          : data.shelfLife;
+
+        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } catch (err) {
+        alert('AI Analysis notice: ' + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '✨ Analyze Food';
+      }
+    }
+
+    document.getElementById('aiAnalyzeForm')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      triggerAnalysis(document.getElementById('aiFoodInput').value.trim());
+    });
+
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('analyze-listing-btn')) {
+        const food = e.target.getAttribute('data-name');
+        triggerAnalysis(food);
+      }
+    });
+
+    // ─── Customer Claim / Reserve ────────────────────────────────────────────
+    document.addEventListener('click', async function(e) {
+      if (e.target.classList.contains('reserve-btn')) {
+        const btn = e.target;
+        const listingTitle = btn.getAttribute('data-title');
+        let listingId = btn.getAttribute('data-id');
+
+        try {
+          btn.disabled = true;
+          btn.textContent = 'Reserving...';
+
+          let user = BiteShareAPI.getUser();
+          if (!user || user.role !== 'customer') {
+            const otpRes = await BiteShareAPI.auth.otpRequest('9876543210');
+            await BiteShareAPI.auth.otpVerify('9876543210', otpRes.otp, 'customer');
+          }
+
+          let handoffCode = '4921';
+          if (!listingId.startsWith('sample')) {
+            const res = await BiteShareAPI.listings.reserve(listingId);
+            handoffCode = res.handoffCode;
+          }
+
+          // Show Reservation banner
+          const banner = document.getElementById('reservationBanner');
+          const codeEl = document.getElementById('bannerHandoffCode');
+          if (banner && codeEl) {
+            codeEl.textContent = handoffCode;
+            banner.style.display = 'block';
+            banner.scrollIntoView({ behavior: 'smooth' });
+          }
+
+          activeListingIdForHandoff = listingId;
+          document.getElementById('handoffCodeInput').value = handoffCode; // Pre-fill in handoff box for demo convenience
+
+          btn.textContent = 'Reserved ✔';
+          btn.style.background = '#e6fcf5';
+          btn.style.color = '#0ca678';
+          btn.style.borderColor = '#2d6a4f';
+        } catch (err) {
+          alert('Could not reserve meal: ' + err.message);
+          btn.disabled = false;
+          btn.textContent = 'Claim / Reserve';
+        }
+      }
+    });
+
+    // ─── Community Verify Handoff ────────────────────────────────────────────
+    document.getElementById('verifyHandoffBtn')?.addEventListener('click', async function() {
+      const code = document.getElementById('handoffCodeInput').value.trim();
+      const resEl = document.getElementById('handoffResult');
+      if (!code) return alert('Please enter 4-digit handoff code');
+
+      try {
+        if (activeListingIdForHandoff && !activeListingIdForHandoff.startsWith('sample')) {
+          await BiteShareAPI.listings.verifyHandoff(activeListingIdForHandoff, code);
+        }
+
+        resEl.style.display = 'block';
+        resEl.style.background = '#e6fcf5';
+        resEl.style.color = '#0ca678';
+        resEl.innerHTML = `✔ <strong>Handoff Verified!</strong> Code <strong>${code}</strong> matched. Meal portion marked as <strong>Picked Up</strong>!`;
+
+        // Refresh impact counter
+        loadImpactCounters();
+      } catch (err) {
+        resEl.style.display = 'block';
+        resEl.style.background = '#ffe3e3';
+        resEl.style.color = '#c92a2a';
+        resEl.textContent = 'Error: ' + err.message;
+      }
+    });
+
+    // ─── Post Surplus Meal (Community Only) ──────────────────────────────────
+    document.getElementById('postMealForm')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const fb = document.getElementById('postFeedback');
+      const btn = document.getElementById('postMealBtn');
+
+      const title = document.getElementById('postTitle').value.trim();
+      const quantity = Number(document.getElementById('postQuantity').value);
+      const category = document.getElementById('postCategory').value;
+      const pickupAddress = document.getElementById('postPickupAddress').value.trim() || 'Community Center Sector 62';
+      const pickupTime = document.getElementById('postPickupTime').value;
+
+      try {
+        btn.disabled = true;
+        btn.textContent = 'Posting to Live Network...';
+
+        const user = BiteShareAPI.getUser();
+        if (!user || user.role !== 'community') {
+          const otpRes = await BiteShareAPI.auth.otpRequest('9123456780');
+          await BiteShareAPI.auth.otpVerify('9123456780', otpRes.otp, 'community');
+        }
+
+        const res = await BiteShareAPI.listings.create({
+          title,
+          quantity,
+          category,
+          pickupAddress,
+          pickupWindow: { from: '18:00', to: pickupTime },
+          location: { coordinates: [currentCoords[1], currentCoords[0]] }
+        });
+
+        const newId = res.listing?._id || 'new-' + Date.now();
+        activeListingIdForHandoff = newId;
+
+        fb.style.display = 'block';
+        fb.style.background = '#e6fcf5';
+        fb.style.color = '#0ca678';
+        fb.textContent = `✔ Meal posted successfully! "${title}" is now available.`;
+
+        addListingPin(currentCoords[0], currentCoords[1], title);
+
+        const list = document.getElementById('dynamicMealList');
+        if (list) {
+          const item = document.createElement('div');
+          item.className = 'meal-item';
+          item.innerHTML = `
+            <div class="meal-img">🍲</div>
+            <div class="meal-details">
+              <h4>${title}</h4>
+              <p>📍 ${pickupAddress} • ⏰ Until ${pickupTime} • <span style="color:#2b6e4e;font-weight:600;">${category === 'veg' ? 'Veg' : 'Non-Veg'}</span></p>
+            </div>
+            <div class="meal-action">
+              <span class="portion-badge">${quantity} Portions</span>
+              <button class="btn btn-sm-outline analyze-listing-btn" data-name="${title}">🔬 Analyze</button>
+              <button class="btn btn-sm-outline reserve-btn" data-title="${title}" data-id="${newId}">Claim / Reserve</button>
+            </div>
+          `;
+          list.prepend(item);
+        }
+
+        document.getElementById('postMealForm').reset();
+
+        // Refresh My Surplus Meals list
+        loadMyMeals();
+      } catch (err) {
+        fb.style.display = 'block';
+        fb.style.background = '#ffe3e3';
+        fb.style.color = '#c92a2a';
+        fb.textContent = 'Error: ' + err.message;
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '🚀 Post Surplus Meal Now';
+      }
+    });
+
+    // ─── Category Filter Buttons ─────────────────────────────────────────────
+    document.querySelectorAll('.cat-filter-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.cat-filter-btn').forEach(b => {
+          b.style.background = '#fff';
+          b.style.color = '#2d6a4f';
+        });
+        btn.style.background = '#2d6a4f';
+        btn.style.color = '#fff';
+
+        const cat = btn.getAttribute('data-cat');
+        document.querySelectorAll('#dynamicMealList .meal-item').forEach(function(item) {
+          if (cat === 'all') {
+            item.style.display = 'flex';
+          } else {
+            const text = item.textContent.toLowerCase();
+            if (cat === 'veg' && text.includes('veg') && !text.includes('non-veg')) {
+              item.style.display = 'flex';
+            } else if (cat === 'non-veg' && text.includes('non-veg')) {
+              item.style.display = 'flex';
+            } else if (cat === 'veg') {
+              item.style.display = 'flex';
+            } else {
+              item.style.display = 'none';
+            }
+          }
+        });
+      });
+    });
+
+    // ─── My Surplus Meals (Community user's own listings) ─────────────────────
+    async function loadMyMeals() {
+      const list = document.getElementById('myMealsList');
+      const placeholder = document.getElementById('myMealsPlaceholder');
+      if (!list) return;
+
+      const user = BiteShareAPI.getUser();
+      if (!user || user.role !== 'community') {
+        if (placeholder) placeholder.textContent = 'Log in as a Community user to see your meals here.';
+        return;
+      }
+
+      try {
+        const res = await BiteShareAPI.listings.getAll();
+        const listings = res.listings || res.data || [];
+        const myListings = listings.filter(l => {
+          const ownerId = l.postedBy?._id || l.postedBy || l.provider;
+          return ownerId === user._id || ownerId?.toString() === user._id;
+        });
+
+        if (myListings.length === 0) {
+          list.innerHTML = '<p style="color:#888; font-size:14px; text-align:center; padding:16px;">You have not posted any meals yet. Use the form above to add one!</p>';
+          return;
+        }
+
+        list.innerHTML = myListings.map(l => `
+          <div class="meal-item" data-listing-id="${l._id}">
+            <div class="meal-img">🍲</div>
+            <div class="meal-details">
+              <h4>${l.title}</h4>
+              <p>📍 ${l.pickupAddress || 'N/A'} • ⏰ ${l.pickupWindow?.to || 'N/A'} • <span style="color:#2b6e4e;font-weight:600;">${l.category === 'non-veg' ? 'Non-Veg' : 'Veg'}</span> • Status: <strong>${l.status}</strong></p>
+            </div>
+            <div class="meal-action">
+              <span class="portion-badge">${l.quantity} Portions</span>
+              <button class="btn btn-sm-outline delete-my-meal-btn" data-id="${l._id}" data-title="${l.title}" style="color:#c92a2a; border-color:#c92a2a;">🗑️ Delete</button>
+            </div>
+          </div>
+        `).join('');
+      } catch (err) {
+        console.warn('Could not load my meals:', err.message);
+        if (placeholder) placeholder.textContent = 'Could not load your meals. Please try again.';
+      }
+    }
+
+    // Delete meal handler (event delegation)
+    document.addEventListener('click', async function(e) {
+      if (!e.target.classList.contains('delete-my-meal-btn')) return;
+
+      const btn = e.target;
+      const listingId = btn.getAttribute('data-id');
+      const title = btn.getAttribute('data-title');
+
+      if (!confirm(`Are you sure you want to delete "${title}"?\nThis action cannot be undone.`)) return;
+
+      try {
+        btn.disabled = true;
+        btn.textContent = 'Deleting...';
+        await BiteShareAPI.listings.delete(listingId);
+
+        // Remove the card from DOM without reload
+        const card = btn.closest('.meal-item');
+        if (card) {
+          card.style.transition = 'opacity 0.3s';
+          card.style.opacity = '0';
+          setTimeout(() => card.remove(), 300);
+        }
+
+        // Also remove from the browse list if present
+        const browseCard = document.querySelector(`#dynamicMealList [data-listing-id="${listingId}"]`);
+        if (browseCard) browseCard.remove();
+
+        // Refresh impact counters
+        loadImpactCounters();
+      } catch (err) {
+        alert('Could not delete: ' + err.message);
+        btn.disabled = false;
+        btn.textContent = '🗑️ Delete';
+      }
+    });
+
+    document.getElementById('refreshMyMeals')?.addEventListener('click', loadMyMeals);
+
+    // ─── Load Available Meals from API ────────────────────────────────────────
+    async function loadAvailableMeals() {
+      const user = BiteShareAPI.getUser();
+      if (!user) return; // Only load dynamically if logged in
+
+      try {
+        const res = await BiteShareAPI.listings.getAll();
+        const listings = res.listings || res.data || [];
+        if (listings.length === 0) return;
+
+        const list = document.getElementById('dynamicMealList');
+        if (!list) return;
+
+        // Clear sample items
+        list.innerHTML = '';
+
+        listings.forEach(l => {
+          const item = document.createElement('div');
+          item.className = 'meal-item';
+          item.setAttribute('data-listing-id', l._id);
+          item.innerHTML = `
+            <div class="meal-img">🍲</div>
+            <div class="meal-details">
+              <h4>${l.title}</h4>
+              <p>📍 ${l.pickupAddress || 'Community Center'} • ⏰ Until ${l.pickupWindow?.to || '21:00'} • <span style="color:#2b6e4e;font-weight:600;">${l.category === 'non-veg' ? 'Non-Veg' : 'Veg'}</span></p>
+            </div>
+            <div class="meal-action">
+              <span class="portion-badge">${l.quantity} Portions</span>
+              <button class="btn btn-sm-outline analyze-listing-btn" data-name="${l.title}">🔬 Analyze</button>
+              <button class="btn btn-sm-outline reserve-btn" data-title="${l.title}" data-id="${l._id}">Claim / Reserve</button>
+            </div>
+          `;
+          list.appendChild(item);
+
+          // Add map pin
+          if (l.location?.coordinates) {
+            addListingPin(l.location.coordinates[1], l.location.coordinates[0], l.title);
+          }
+        });
+      } catch (err) {
+        console.warn('Could not load available meals:', err.message);
+      }
+    }
+
+    // On Load
+    window.addEventListener('DOMContentLoaded', function() {
+      initMap();
+      startLocationWatch();
+      loadImpactCounters();
+      loadMyMeals();
+      loadAvailableMeals();
+    });
+  </script>
+</body>
+</html>

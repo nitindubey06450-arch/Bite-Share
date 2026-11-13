@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BiteShare | NGO & Community Portal</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ngos.css">
+</head>
+<body>
+  <header class="navbar">
+    <a href="index.html" class="logo">
+      <span class="brand-name">Bite<span class="highlight">Share</span></span>
+    </a>
+    <nav class="nav-center">
+      <a href="index.html#available-meals" class="nav-btn">Available Meals</a>
+      <a href="index.html#post-meal" class="nav-btn">Post Meal</a>
+      <a href="ngos.html" class="nav-btn active">NGOs</a>
+      <a href="about.html" class="nav-btn">About</a>
+      <a href="other.html" class="nav-btn">Other</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="card ngo-banner">
+      <span class="badge green-badge">VERIFIED PARTNER NETWORK</span>
+      <h1>NGO & Partner Hub</h1>
+      <p>Empowering non-profits to claim large-scale surplus food and coordinate distribution efficiently.</p>
+    </div>
+
+    <div class="ngo-grid">
+      <!-- NGO Bulk Posting -->
+      <div class="card">
+        <h2> Bulk Food Drive Request</h2>
+        <p>Are you hosting a feeding drive? Post your requirements here to alert local businesses.</p>
+        <form class="post-meal-form">
+          <div class="form-group">
+            <label>NGO Name</label>
+            <input type="text" placeholder="e.g. Hope Foundation">
+          </div>
+          <div class="form-group">
+            <label>Portions Needed</label>
+            <input type="number" placeholder="e.g. 200">
+          </div>
+          <button class="btn btn-green">Submit Food Drive Request</button>
+        </form>
+      </div>
+
+      <!-- About NGO Network -->
+      <div class="card">
+        <h2>About Our NGO Ecosystem</h2>
+        <p>We verify every non-profit on BiteShare to ensure food reaches genuine shelter homes, orphanages, and community kitchens.</p>
+        <ul class="ngo-list">
+          <li>✔ Verified Cold-Chain Storage Logistics</li>
+          <li>✔ Real-Time SMS & Push Notifications for Donated Feeds</li>
+          <li>✔ Transparency reports for corporate food safety compliance</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

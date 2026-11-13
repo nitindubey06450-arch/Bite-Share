@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BiteShare | Live Delivery Tracking</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <style>
+    .tracking-container {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: #ffffff;
+      border: 1px solid var(--border-beige);
+      border-radius: 14px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    }
+    #trackingMap {
+      width: 100%;
+      height: 380px;
+      border-radius: 10px;
+      border: 1px solid #ebdccb;
+      margin: 1.2rem 0;
+      z-index: 1;
+    }
+    .timeline {
+      display: flex;
+      justify-content: space-between;
+      margin: 1.5rem 0;
+      position: relative;
+    }
+    .timeline-step {
+      text-align: center;
+      flex: 1;
+      position: relative;
+    }
+    .step-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 8px auto;
+      font-size: 18px;
+      transition: all 0.3s;
+    }
+    .step-icon.active { background: #f25c05; box-shadow: 0 0 10px rgba(242, 92, 5, 0.4); }
+    .step-icon.done { background: #2d6a4f; }
+    .step-label { font-size: 13px; font-weight: 600; color: #555; }
+    .step-label.active { color: #f25c05; }
+    .eta-badge {
+      background: #fff3e0;
+      color: #d94e00;
+      border: 1px solid #ffe0b2;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .btn-sos {
+      background: #c92a2a;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-sos:hover { background: #a61e1e; }
+    .handoff-box {
+      background: #fdfbf7;
+      border: 1px solid #ebdccb;
+      border-radius: 10px;
+      padding: 16px;
+      margin-top: 1.2rem;
+    }
+  </style>
+</head>
+<body style="background-color: var(--bg-beige); color: var(--text-dark);">
+
+  <header class="navbar">
+    <div class="nav-left">
+      <a href="index.html" class="logo">
+        <span class="brand-name">Bite<span class="highlight">Share</span></span>
+      </a>
+    </div>
+    <div class="nav-right">
+      <a href="index.html" class="nav-btn">← Back to Hub</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="tracking-container">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        <div>
+          <span class="badge green-badge">● LIVE RAPIDO/ZOMATO TRACKING</span>
+          <h2 id="orderTitle" style="margin: 6px 0 0 0; color: #2b2b2b;">Order Tracking</h2>
+          <p id="orderSubtitle" style="color: #666; margin: 4px 0 0 0; font-size: 14px;">Connecting Extra Bites to Needy Hearts</p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div class="eta-badge" id="etaDisplay">⏱ Calculating ETA...</div>
+          <button id="sosBtn" class="btn-sos" onclick="triggerSos()">🚨 RIDER SOS</button>
+        </div>
+      </div>
+
+      <!-- Live OpenStreetMap -->
+      <div id="trackingMap"></div>
+
+      <!-- Live Status Timeline -->
+      <div class="timeline" id="statusTimeline">
+        <div class="timeline-step" id="step-placed">
+          <div class="step-icon done">📝</div>
+          <div class="step-label">Placed</div>
+        </div>
+        <div class="timeline-step" id="step-accepted">
+          <div class="step-icon">🛵</div>
+          <div class="step-label">Accepted</div>
+        </div>
+        <div class="timeline-step" id="step-on_the_way">
+          <div class="step-icon">🍲</div>
+          <div class="step-label">On The Way</div>
+        </div>
+        <div class="timeline-step" id="step-delivered">
+          <div class="step-icon">✅</div>
+          <div class="step-label">Delivered</div>
+        </div>
+      </div>
+
+      <!-- Handoff & Rider Code Section -->
+      <div class="handoff-box" id="handoffSection">
+        <h4 style="color: #2d6a4f; margin-top: 0;">🔐 4-Digit Security Handoff Codes</h4>
+        <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 12px;">
+          <div style="flex: 1; min-width: 200px; padding: 10px; background: #fff; border-radius: 6px; border: 1px solid #ebdccb;">
+            <div style="font-size: 12px; color: #666;">Community Pickup OTP:</div>
+            <div id="dispPickupCode" style="font-size: 20px; font-weight: 700; color: #2d6a4f;">••••</div>
+            <small style="color: #888;">Community provides to Rider</small>
+          </div>
+          <div style="flex: 1; min-width: 200px; padding: 10px; background: #fff; border-radius: 6px; border: 1px solid #ebdccb;">
+            <div style="font-size: 12px; color: #666;">Customer Delivery OTP:</div>
+            <div id="dispDeliveryCode" style="font-size: 20px; font-weight: 700; color: #f25c05;">••••</div>
+            <small style="color: #888;">Customer provides to Rider</small>
+          </div>
+        </div>
+
+        <!-- Rider Handoff Verification Form -->
+        <div id="riderHandoffForm" style="display:none; border-top: 1px dashed #ebdccb; padding-top: 10px;">
+          <h5 style="margin: 6px 0;">🛵 Rider Code Verification Entry</h5>
+          <form id="verifyHandoffForm" style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <select id="handoffType" style="padding: 8px; border-radius: 6px; border: 1px solid #ebdccb;">
+              <option value="pickup">Pickup Verification</option>
+              <option value="delivery">Delivery Verification</option>
+            </select>
+            <input type="text" id="handoffCodeInput" placeholder="Enter 4-digit code" maxlength="4" style="padding: 8px 12px; border-radius: 6px; border: 1px solid #ebdccb; width: 140px;" required>
+            <button type="submit" class="btn btn-orange" style="padding: 8px 16px;">Verify Handoff</button>
+          </form>
+          <div id="handoffMsg" style="font-size: 13px; margin-top: 6px;"></div>
+        </div>
+      </div>
+
+      <!-- Route Details -->
+      <div style="margin-top: 1.2rem; font-size: 13.5px; color: #444; line-height: 1.6;">
+        <div>📍 <strong>Pickup:</strong> <span id="txtPickup">Loading pickup...</span></div>
+        <div>🏠 <strong>Drop:</strong> <span id="txtDrop">Loading drop...</span></div>
+        <div id="txtRider" style="margin-top: 4px;">🛵 <strong>Rider:</strong> Assigned upon acceptance</div>
+      </div>
+    </div>
+  </main>
+
+  <script src="api.js"></script>
+  <script>
+    let map, riderMarker, pickupMarker, dropMarker, routePolyline;
+    let currentOrderId = new URLSearchParams(window.location.search).get('orderId');
+    let socket;
+    const token = localStorage.getItem('biteshare_token');
+    const user = JSON.parse(localStorage.getItem('biteshare_user') || '{}');
+
+    // Initialize Map (Live Google Maps)
+    function initMap(pickupCoords, dropCoords) {
+      map = L.map('trackingMap').setView([pickupCoords[1], pickupCoords[0]], 14);
+
+      // Google Maps Roadmap
+      const googleRoadmap = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+        maxZoom: 20,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+        attribution: '&copy; <a href="https://maps.google.com" target="_blank">Google Maps</a>'
+      });
+
+      // Google Maps Satellite / Hybrid
+      const googleHybrid = L.tileLayer('https://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+        maxZoom: 20,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+        attribution: '&copy; <a href="https://maps.google.com" target="_blank">Google Maps</a>'
+      });
+
+      // Carto Voyager
+      const cartoVoyager = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        maxZoom: 20,
+        subdomains: 'abcd',
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+      });
+
+      googleRoadmap.addTo(map);
+
+      // Layer Control
+      L.control.layers({
+        '🗺️ Google Maps': googleRoadmap,
+        '🛰️ Google Satellite': googleHybrid,
+        '🌿 Carto Map': cartoVoyager
+      }, null, { position: 'topright' }).addTo(map);
+
+      // Load Google Maps API Key if configured
+      fetch('/api/location/config')
+        .then(r => r.json())
+        .then(cfg => {
+          if (cfg.googleMapsApiKey && !window.google?.maps) {
+            const script = document.createElement('script');
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${cfg.googleMapsApiKey}&libraries=places`;
+            script.async = true;
+            document.head.appendChild(script);
+          }
+        })
+        .catch(() => {});
+
+      // Icons
+      const pickupIcon = L.divIcon({ html: '🍲', className: 'map-emoji', iconSize: [30, 30] });
+      const dropIcon = L.divIcon({ html: '🏠', className: 'map-emoji', iconSize: [30, 30] });
+      const riderIcon = L.divIcon({ html: '🛵', className: 'map-emoji', iconSize: [34, 34] });
+
+      pickupMarker = L.marker([pickupCoords[1], pickupCoords[0]], { icon: pickupIcon }).addTo(map).bindPopup('<b>Pickup Hub</b>');
+      dropMarker = L.marker([dropCoords[1], dropCoords[0]], { icon: dropIcon }).addTo(map).bindPopup('<b>Customer Drop Point</b>');
+      riderMarker = L.marker([pickupCoords[1], pickupCoords[0]], { icon: riderIcon }).addTo(map).bindPopup('<b>Active Rider</b>');
+
+      // Straight route line
+      routePolyline = L.polyline([[pickupCoords[1], pickupCoords[0]], [dropCoords[1], dropCoords[0]]], {
+        color: '#2d6a4f',
+        weight: 4,
+        dashArray: '6, 8'
+      }).addTo(map);
+
+      map.fitBounds(routePolyline.getBounds(), { padding: [40, 40] });
+    }
+
+    function updateTimeline(status) {
+      const steps = ['placed', 'accepted', 'on_the_way', 'delivered'];
+      const curIndex = steps.indexOf(status === 'picked_up' ? 'on_the_way' : status);
+      steps.forEach((step, idx) => {
+        const el = document.querySelector(`#step-${step} .step-icon`);
+        const label = document.querySelector(`#step-${step} .step-label`);
+        if (el && label) {
+          if (idx < curIndex) {
+            el.className = 'step-icon done';
+            label.className = 'step-label';
+          } else if (idx === curIndex) {
+            el.className = 'step-icon active';
+            label.className = 'step-label active';
+          } else {
+            el.className = 'step-icon';
+            label.className = 'step-label';
+          }
+        }
+      });
+    }
+
+    async function loadOrder() {
+      try {
+        let endpoint = currentOrderId ? `/orders/${currentOrderId}` : '/orders/available';
+        const res = await fetch(`http://localhost:5000/api${endpoint}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const data = await res.json();
+
+        let order = currentOrderId ? data.order : (data.orders && data.orders[0]);
+        if (!order) {
+          document.getElementById('orderTitle').textContent = 'No Active Orders';
+          document.getElementById('orderSubtitle').textContent = 'Please place or accept an order first.';
+          return;
+        }
+
+        currentOrderId = order._id;
+        document.getElementById('orderTitle').textContent = `Order #${order._id.slice(-6)}`;
+        document.getElementById('txtPickup').textContent = order.pickup.address;
+        document.getElementById('txtDrop').textContent = order.drop.address;
+
+        if (order.demoPickupCode) document.getElementById('dispPickupCode').textContent = order.demoPickupCode;
+        if (order.demoDeliveryCode) document.getElementById('dispDeliveryCode').textContent = order.demoDeliveryCode;
+
+        if (order.rider) {
+          document.getElementById('txtRider').textContent = `🛵 Rider: ${order.rider.name || 'Partner'} (${order.rider.phone || ''})`;
+        }
+
+        if (user.role === 'rider') {
+          document.getElementById('riderHandoffForm').style.display = 'block';
+        }
+
+        updateTimeline(order.status);
+        initMap(order.pickup.location.coordinates, order.drop.location.coordinates);
+
+        // Socket.io integration
+        if (window.io && token) {
+          socket = io('http://localhost:5000', { auth: { token } });
+          socket.emit('order:join', { orderId: currentOrderId });
+
+          socket.on('order:location', (loc) => {
+            if (riderMarker) {
+              riderMarker.setLatLng([loc.lat, loc.lng]);
+            }
+            if (loc.etaMinutes) {
+              document.getElementById('etaDisplay').textContent = `⏱ ${loc.etaMinutes} Mins ETA`;
+            }
+          });
+
+          socket.on('order:status', (st) => {
+            updateTimeline(st.status);
+            alert(`Order status updated to: ${st.status.toUpperCase()}`);
+          });
+
+          // Rider GPS Simulation (if current user is Rider)
+          if (user.role === 'rider') {
+            let lat = order.pickup.location.coordinates[1];
+            let lng = order.pickup.location.coordinates[0];
+            const dLat = (order.drop.location.coordinates[1] - lat) / 50;
+            const dLng = (order.drop.location.coordinates[0] - lng) / 50;
+
+            setInterval(() => {
+              lat += dLat;
+              lng += dLng;
+              socket.emit('rider:location', { orderId: currentOrderId, lat, lng });
+            }, 3500);
+          }
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    // Trigger SOS Alert
+    function triggerSos() {
+      if (!confirm('Are you sure you want to trigger an Emergency SOS Alert?')) return;
+      if (socket) {
+        navigator.geolocation.getCurrentPosition((pos) => {
+          socket.emit('rider:sos', {
+            orderId: currentOrderId,
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude,
+            reason: 'Rider triggered emergency SOS button'
+          });
+          alert('🚨 Emergency SOS broadcasted to Admin and Emergency Contacts!');
+        }, () => {
+          socket.emit('rider:sos', { orderId: currentOrderId, lat: 28.5355, lng: 77.391, reason: 'SOS Alert' });
+          alert('🚨 Emergency SOS transmitted!');
+        });
+      }
+    }
+
+    // Handle Handoff verification form
+    document.getElementById('verifyHandoffForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const code = document.getElementById('handoffCodeInput').value.trim();
+      const type = document.getElementById('handoffType').value;
+      const msg = document.getElementById('handoffMsg');
+
+      try {
+        const res = await fetch(`http://localhost:5000/api/orders/${currentOrderId}/handoff`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({ code, type })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.messageHi || data.message);
+
+        msg.style.color = '#2d6a4f';
+        msg.textContent = `✔ ${data.message}`;
+        updateTimeline(data.order.status);
+      } catch (err) {
+        msg.style.color = '#c92a2a';
+        msg.textContent = `✖ ${err.message}`;
+      }
+    });
+
+    window.onload = loadOrder;
+  </script>
+</body>
+</html>

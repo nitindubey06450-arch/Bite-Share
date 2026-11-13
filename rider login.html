@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BiteShare | Rider Login</title>
+  <link rel="stylesheet" href="login style.css">
+</head>
+<body class="login-body">
+
+  <div class="login-overlay">
+    <div class="login-card rider-card" style="border-top: 4px solid #2b6e4e;">
+      <a href="index.html" class="close-btn">&times;</a>
+
+      <div class="badge-container">
+        <span class="pill-badge" style="background:#e6fcf5; color:#2b6e4e; font-weight:bold; padding:4px 10px; border-radius:20px; font-size:12px;">DELIVERY PARTNER • RIDER FLEET</span>
+      </div>
+
+      <h2>Rider Login</h2>
+      <p class="login-subtitle">Sign in to deliver rescued meals and track live trips.</p>
+
+      <!-- Auto-Login Banner -->
+      <div id="autoLoginBanner" style="display:none; background:#e6fcf5; color:#0ca678; padding:10px; border-radius:8px; margin-bottom:12px; font-size:14px; text-align:center;">
+        Checking saved session...
+      </div>
+
+      <!-- DEMO OTP LOGIN SECTION -->
+      <div class="demo-otp-section" style="background: #f8f9fa; border: 1px dashed #2b6e4e; border-radius: 8px; padding: 12px; margin-bottom: 16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <strong style="color: #2b6e4e; font-size: 14px;">⚡ Instant Demo Login</strong>
+          <span style="font-size: 12px; color: #666;">Rider Fleet</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <input id="demoPhone" type="tel" placeholder="Enter Phone (e.g. 9123456789)" value="9123456789" style="flex:1; padding:8px 10px; border:1px solid #ced4da; border-radius:6px; font-size:14px;">
+          <button id="sendOtpBtn" type="button" style="background:#2b6e4e; color:#fff; border:none; padding:8px 12px; border-radius:6px; font-weight:600; cursor:pointer;">Send OTP</button>
+        </div>
+
+        <div id="otpOnScreen" style="display:none; margin-top:8px; padding:8px; background:#fff3bf; border-radius:6px; color:#d9480f; font-weight:bold; font-size:14px; text-align:center;">
+          ✨ Demo OTP: <span id="displayedOtp" style="letter-spacing:2px; font-size:16px;">------</span>
+        </div>
+
+        <div id="verifyBox" style="display:none; margin-top:8px;">
+          <div style="display:flex; gap:8px;">
+            <input id="otpCodeInput" type="text" placeholder="6-digit OTP" maxlength="6" style="flex:1; padding:8px 10px; border:1px solid #ced4da; border-radius:6px; font-size:15px; font-weight:bold; letter-spacing:2px; text-align:center;">
+            <button id="verifyOtpBtn" type="button" style="background:#f25c05; color:#fff; border:none; padding:8px 14px; border-radius:6px; font-weight:bold; cursor:pointer;">Login</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="loginFeedback" style="display:none; margin-top:12px; padding:10px; border-radius:6px; font-size:14px; text-align:center;"></div>
+    </div>
+  </div>
+
+  <script src="api.js"></script>
+  <script>
+    const feedback = document.getElementById('loginFeedback');
+    const autoBanner = document.getElementById('autoLoginBanner');
+    const demoPhone = document.getElementById('demoPhone');
+    const sendOtpBtn = document.getElementById('sendOtpBtn');
+    const otpOnScreen = document.getElementById('otpOnScreen');
+    const displayedOtp = document.getElementById('displayedOtp');
+    const verifyBox = document.getElementById('verifyBox');
+    const otpCodeInput = document.getElementById('otpCodeInput');
+    const verifyOtpBtn = document.getElementById('verifyOtpBtn');
+
+    const showMsg = (msg, isError = false) => {
+      feedback.style.display = 'block';
+      feedback.style.background = isError ? '#ffe3e3' : '#e6fcf5';
+      feedback.style.color = isError ? '#c92a2a' : '#0ca678';
+      feedback.textContent = msg;
+    };
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      const token = BiteShareAPI.getToken();
+      if (token) {
+        autoBanner.style.display = 'block';
+        autoBanner.textContent = 'Verifying saved login session...';
+        try {
+          const res = await BiteShareAPI.auth.me();
+          if (res.success && res.user) {
+            autoBanner.textContent = `Welcome back, ${res.user.name}! Redirecting to tracking...`;
+            setTimeout(() => { window.location.href = 'tracking.html'; }, 800);
+            return;
+          }
+        } catch (err) {
+          BiteShareAPI.clearToken();
+        }
+        autoBanner.style.display = 'none';
+      }
+    });
+
+    sendOtpBtn.addEventListener('click', async () => {
+      const phone = demoPhone.value.trim();
+      if (!phone) return showMsg('Please enter phone number', true);
+
+      try {
+        sendOtpBtn.disabled = true;
+        sendOtpBtn.textContent = 'Sending...';
+        const res = await BiteShareAPI.auth.otpRequest(phone);
+        const code = res.otp || '123456';
+        displayedOtp.textContent = code;
+        otpOnScreen.style.display = 'block';
+        verifyBox.style.display = 'block';
+        otpCodeInput.value = code;
+        showMsg(`Demo OTP generated: ${code}`, false);
+      } catch (err) {
+        showMsg(err.message, true);
+      } finally {
+        sendOtpBtn.disabled = false;
+        sendOtpBtn.textContent = 'Resend';
+      }
+    });
+
+    verifyOtpBtn.addEventListener('click', async () => {
+      const phone = demoPhone.value.trim();
+      const code = otpCodeInput.value.trim();
+      if (!code) return showMsg('Please enter OTP', true);
+
+      try {
+        verifyOtpBtn.disabled = true;
+        verifyOtpBtn.textContent = 'Logging in...';
+        await BiteShareAPI.auth.otpVerify(phone, code, 'rider');
+        showMsg('Rider logged in! Redirecting to tracking...', false);
+        setTimeout(() => { window.location.href = 'tracking.html'; }, 800);
+      } catch (err) {
+        showMsg(err.message, true);
+        verifyOtpBtn.disabled = false;
+        verifyOtpBtn.textContent = 'Login';
+      }
+    });
+  </script>
+</body>
+</html>

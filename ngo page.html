@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BiteShare | NGO & Partner Hub</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ngo style.css">
+</head>
+<body>
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="navbar">
+    <div class="nav-left">
+      <a href="index.html" class="logo">
+        <svg class="bowl-logo" viewBox="0 0 100 100">
+          <path class="steam steam-1" d="M35 35 Q40 25 35 15" stroke="#f25c05" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path class="steam steam-2" d="M50 35 Q55 25 50 15" stroke="#f25c05" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path class="steam steam-3" d="M65 35 Q70 25 65 15" stroke="#f25c05" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M20 45 C20 75 80 75 80 45 Z" fill="#2d6a4f"/>
+          <line x1="25" y1="45" x2="75" y2="45" stroke="#1b4332" stroke-width="3"/>
+          <circle cx="50" cy="40" r="4" fill="#f25c05"/>
+        </svg>
+        <div class="logo-text">
+          <span class="brand-name">Bite<span class="highlight">Share</span></span>
+          <span class="tagline">NOURISH TOGETHER</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- CENTER NAVIGATION BUTTONS -->
+    <nav class="nav-center">
+      <a href="index.html#available-meals" class="nav-btn">Available Meals</a>
+      <a href="index.html#post-meal" class="nav-btn">Post Meal</a>
+      <a href="ngo page.html" class="nav-btn active">NGOs</a>
+      <a href="about page.html" class="nav-btn">About</a>
+      <a href="other page.html" class="nav-btn">Other</a>
+    </nav>
+
+    <!-- TOP RIGHT LOGIN BUTTONS -->
+    <div class="nav-right">
+      <a href="customer login.html" class="auth-btn customer-btn">Customer Login</a>
+      <a href="community login.html" class="auth-btn community-btn">Community Login</a>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="container">
+
+    <!-- HERO INTRODUCTORY BANNER -->
+    <section class="card ngo-hero-card">
+      <div class="ngo-hero-content">
+        <span class="badge green-badge">🌱 VERIFIED PARTNER NETWORK</span>
+        <h1>Empowering Non-Profits to <span class="text-green">Nourish Communities</span></h1>
+        <p>
+          BiteShare connects certified shelters, orphanages, and community kitchens directly with surplus food donors and corporate catering networks. Coordinate bulk pickups, request food drives, and track your distribution impact seamlessly.
+        </p>
+      </div>
+      <div class="ngo-hero-stats">
+        <div class="ngo-stat-box">
+          <h3>140+</h3>
+          <p>Active Shelters</p>
+        </div>
+        <div class="ngo-stat-box">
+          <h3>50,000+</h3>
+          <p>Meals Distributed</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GRID SECTION: FORM & ABOUT ECOSYSTEM -->
+    <div class="ngo-main-grid">
+
+      <!-- BULK FOOD DRIVE REQUEST FORM -->
+      <div class="card ngo-form-card">
+        <div class="form-header-badge">
+          <span class="badge orange-outline-badge">⚡ FAST DISPATCH</span>
+        </div>
+        <h2>Bulk Food Drive Request</h2>
+        <p class="form-desc">Are you hosting an upcoming feeding drive or community relief camp? Submit your requirements to alert local restaurants and caterers.</p>
+
+        <form class="ngo-drive-form" onsubmit="event.preventDefault(); alert('Food drive request submitted successfully!');">
+          <div class="form-group">
+            <label>NGO / Organization Name *</label>
+            <input type="text" placeholder="e.g., Hope & Care Foundation" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Portions Needed *</label>
+              <input type="number" placeholder="e.g., 250 portions" required>
+            </div>
+            <div class="form-group">
+              <label>Target Date & Time *</label>
+              <input type="datetime-local" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Delivery / Pickup Location *</label>
+            <input type="text" placeholder="Enter full address or shelter landmark" required>
+          </div>
+
+          <div class="form-group">
+            <label>Special Dietary Notes (Optional)</label>
+            <input type="text" placeholder="e.g., Prefer vegetarian meals, diabetic-friendly">
+          </div>
+
+          <button type="submit" class="btn btn-orange btn-full">🚀 Submit Food Drive Request</button>
+        </form>
+      </div>
+
+      <!-- ABOUT OUR NGO ECOSYSTEM -->
+      <div class="card ngo-ecosystem-card">
+        <span class="badge green-badge">🛡️ TRUST & COMPLIANCE</span>
+        <h2>About Our NGO Ecosystem</h2>
+        <p class="ecosystem-intro">
+          We rigorously vet every non-profit on BiteShare to maintain the highest food safety standards and ensure sustenance reaches genuine recipients without delay.
+        </p>
+
+        <div class="ecosystem-features">
+          <div class="feature-item">
+            <div class="feature-icon">❄️</div>
+            <div>
+              <h4>Cold-Chain Logistics</h4>
+              <p>Equipped with insulated transit units to keep large banquet donations fresh and safe.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon">📲</div>
+            <div>
+              <h4>Real-Time SMS Pings</h4>
+              <p>Instant alerts sent directly to registered volunteers when bulk surplus is posted nearby.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon">📋</div>
+            <div>
+              <h4>Compliance Reporting</h4>
+              <p>Automated transparency logs and safety audits for corporate donor accountability.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="ngo-cta-box">
+          <p>Want to register your organization as a permanent partner?</p>
+          <a href="community login.html" class="btn btn-outline-green">Register Organization →</a>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="main-footer">
+    <div class="footer-bottom">
+      <p>&copy; 2026 BiteShare Community Initiative. Empowering NGOs for a Zero-Hunger future.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

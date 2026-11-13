@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BiteShare | Other Items Sharing</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <a href="index.html" class="logo"><span class="brand-name">Bite<span class="highlight">Share</span></span></a>
+  </header>
+  <main class="container">
+    <div class="card">
+      <span class="badge orange-outline-badge">BEYOND FOOD</span>
+      <h1>Share Clothes, Books, and Household Items</h1>
+      <p>Extend your kindness beyond meals! Share usable essentials directly with neighbors and community shelters.</p>
+    </div>
+  </main>
+</body>
+</html>

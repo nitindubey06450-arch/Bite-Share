@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BiteShare | Share Clothes, Toys & Essentials</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="other style.css">
+</head>
+<body>
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="navbar">
+    <div class="nav-left">
+      <a href="index.html" class="logo">
+        <svg class="bowl-logo" viewBox="0 0 100 100">
+          <path class="steam steam-1" d="M35 35 Q40 25 35 15" stroke="#f25c05" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path class="steam steam-2" d="M50 35 Q55 25 50 15" stroke="#f25c05" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path class="steam steam-3" d="M65 35 Q70 25 65 15" stroke="#f25c05" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M20 45 C20 75 80 75 80 45 Z" fill="#2d6a4f"/>
+          <line x1="25" y1="45" x2="75" y2="45" stroke="#1b4332" stroke-width="3"/>
+          <circle cx="50" cy="40" r="4" fill="#f25c05"/>
+        </svg>
+        <div class="logo-text">
+          <span class="brand-name">Bite<span class="highlight">Share</span></span>
+          <span class="tagline">NOURISH TOGETHER</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- CENTER NAVIGATION BUTTONS -->
+    <nav class="nav-center">
+      <a href="index.html#available-meals" class="nav-btn">Available Meals</a>
+      <a href="index.html#post-meal" class="nav-btn">Post Meal</a>
+      <a href="tracking.html" class="nav-btn" style="font-weight:600;color:#f25c05;">📍 Live Track</a>
+      <a href="ngo page.html" class="nav-btn">NGOs</a>
+      <a href="about page.html" class="nav-btn">About</a>
+      <a href="other page.html" class="nav-btn active">Other</a>
+    </nav>
+
+    <!-- TOP RIGHT LOGIN BUTTONS -->
+    <div class="nav-right">
+      <a href="rider login.html" class="auth-btn rider-btn" style="background:#2b6e4e; color:white; border-color:#2b6e4e;">Rider Login</a>
+      <a href="customer login.html" class="auth-btn customer-btn">Customer Login</a>
+      <a href="community login.html" class="auth-btn community-btn">Community Login</a>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="container">
+
+    <!-- UNBOXED HERO HEADER -->
+    <section class="other-hero-plain">
+      <span class="badge orange-outline-badge">BEYOND FOOD RESCUE</span>
+      <h1>Extend Your Kindness: Share Clothes, Toys & Household Essentials</h1>
+      <p>
+        Generosity isn't limited to meals. BiteShare connects your gently-used clothing, educational toys, textbooks, and home supplies directly to children, shelter homes, and families starting fresh.
+      </p>
+      <div class="other-action-strip">
+        <a href="#donate-modal" class="btn btn-orange">🎁 Post Non-Food Items for Donation</a>
+        <a href="#item-categories" class="btn btn-outline-green">Browse Items Needed →</a>
+      </div>
+    </section>
+
+    <!-- CATEGORIES SHOWCASE GRID -->
+    <section class="categories-section" id="item-categories">
+      <div class="section-heading">
+        <span class="badge green-badge">COMMUNITY NEEDS</span>
+        <h2>What You Can Share Today</h2>
+      </div>
+
+      <div class="other-grid">
+        <!-- Clothes & Apparel -->
+        <div class="category-card">
+          <div class="category-icon">👕</div>
+          <h3>Clothes & Apparel</h3>
+          <p>Clean coats, school uniforms, baby wear, and winter blankets for local shelter residents.</p>
+          <div class="category-tags">
+            <span>#WinterWear</span>
+            <span>#SchoolUniforms</span>
+            <span>#BabyClothes</span>
+          </div>
+          <a href="#donate-modal" class="btn btn-sm-outline">Donate Apparel</a>
+        </div>
+
+        <!-- Toys & Games -->
+        <div class="category-card orange-top">
+          <div class="category-icon">🧸</div>
+          <h3>Toys & Learning Kits</h3>
+          <p>Board games, soft toys, puzzles, and art supplies to bring joy to children in care homes.</p>
+          <div class="category-tags">
+            <span>#SoftToys</span>
+            <span>#Puzzles</span>
+            <span>#ArtSupplies</span>
+          </div>
+          <a href="#donate-modal" class="btn btn-sm-outline">Donate Toys</a>
+        </div>
+
+        <!-- Books & Stationery -->
+        <div class="category-card">
+          <div class="category-icon">📚</div>
+          <h3>Books & Stationery</h3>
+          <p>Storybooks, school textbooks, notebooks, and stationary kits to empower underprivileged learners.</p>
+          <div class="category-tags">
+            <span>#SchoolTextbooks</span>
+            <span>#StoryBooks</span>
+            <span>#ExamStationery</span>
+          </div>
+          <a href="#donate-modal" class="btn btn-sm-outline">Donate Books</a>
+        </div>
+
+        <!-- Home Supplies -->
+        <div class="category-card">
+          <div class="category-icon">🏠</div>
+          <h3>Household Essentials</h3>
+          <p>Utensils, bedsheets, blankets, storage boxes, and small working appliances for families in transition.</p>
+          <div class="category-tags">
+            <span>#KitchenUtensils</span>
+            <span>#WarmBlankets</span>
+            <span>#Appliances</span>
+          </div>
+          <a href="#donate-modal" class="btn btn-sm-outline">Donate Essentials</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- DONATION FORM MODAL SECTION -->
+    <section class="card donation-form-section" id="donate-modal" style="margin-bottom: 2rem;">
+      <div class="donation-form-header">
+        <span class="badge orange-outline-badge">COMMUNITY RELIEF POST</span>
+        <h2>Publish a Non-Food Donation</h2>
+        <p>List your essentials so local NGOs and shelters can schedule a convenient pickup.</p>
+      </div>
+
+      <form id="otherListingForm" class="post-meal-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Title of Donation Items *</label>
+            <input id="otherTitle" type="text" placeholder="e.g., 5 Winter Blankets, 10 School Uniforms" required>
+          </div>
+          <div class="form-group">
+            <label>Item Type / Category *</label>
+            <select id="otherCategory" required>
+              <option value="clothes">Clothes & Apparel</option>
+              <option value="toys">Toys & Games</option>
+              <option value="books">Books & Stationery</option>
+              <option value="household">Household Essentials</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Quantity / Number of Items *</label>
+            <input id="otherQuantity" type="number" min="1" placeholder="e.g., 5" required>
+          </div>
+          <div class="form-group">
+            <label>Pickup Location *</label>
+            <input id="otherPickupAddress" type="text" placeholder="Street name, landmark, or city" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Item Description & Condition</label>
+          <textarea id="otherDescription" rows="2" placeholder="Gently used, thoroughly cleaned and folded..." style="width:100%; padding:10px; border:1px solid #ced4da; border-radius:6px;"></textarea>
+        </div>
+
+        <button type="submit" id="otherSubmitBtn" class="btn btn-orange btn-full">🚀 Publish Donation Drive</button>
+        <div id="otherFeedback" style="display:none; margin-top:10px; padding:10px; border-radius:6px; font-size:14px; text-align:center;"></div>
+      </form>
+    </section>
+
+    <!-- OTHER ITEMS LISTING & MY DONATED ITEMS SECTION -->
+    <section class="card hub-card" id="other-items-section" style="margin-bottom: 2rem;">
+      <div class="hub-card-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="badge green-badge">🎁 ACTIVE ESSENTIALS</span>
+          <div style="display:flex; gap:6px;">
+            <button class="view-filter-btn active" id="viewAllBtn" style="padding:4px 10px; font-size:12px; border-radius:4px; border:1px solid #2d6a4f; background:#2d6a4f; color:#fff; cursor:pointer;">All Items</button>
+            <button class="view-filter-btn" id="viewMyBtn" style="padding:4px 10px; font-size:12px; border-radius:4px; border:1px solid #2d6a4f; background:#fff; color:#2d6a4f; cursor:pointer;">My Items</button>
+          </div>
+        </div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+          <button class="type-filter-btn active" data-type="all" style="padding:4px 8px; font-size:12px; border-radius:4px; border:1px solid #2d6a4f; background:#2d6a4f; color:#fff; cursor:pointer;">All Types</button>
+          <button class="type-filter-btn" data-type="clothes" style="padding:4px 8px; font-size:12px; border-radius:4px; border:1px solid #2d6a4f; background:#fff; color:#2d6a4f; cursor:pointer;">Clothes</button>
+          <button class="type-filter-btn" data-type="toys" style="padding:4px 8px; font-size:12px; border-radius:4px; border:1px solid #2d6a4f; background:#fff; color:#2d6a4f; cursor:pointer;">Toys</button>
+          <button class="type-filter-btn" data-type="books" style="padding:4px 8px; font-size:12px; border-radius:4px; border:1px solid #2d6a4f; background:#fff; color:#2d6a4f; cursor:pointer;">Books</button>
+          <button class="type-filter-btn" data-type="household" style="padding:4px 8px; font-size:12px; border-radius:4px; border:1px solid #2d6a4f; background:#fff; color:#2d6a4f; cursor:pointer;">Household</button>
+        </div>
+      </div>
+
+      <h2 id="itemsSectionTitle">Available Other Items</h2>
+      <p class="card-desc">Gently-used clothes, textbooks, toys, and household supplies ready for shelter collection.</p>
+
+      <div id="otherItemsList" class="meal-item-list">
+        <p id="otherItemsLoading" style="color:#888; font-size:14px; text-align:center; padding:16px;">Loading items...</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="main-footer">
+    <div class="footer-bottom">
+      <p>&copy; 2026 BiteShare Community Initiative. Extending care through clothes, books, and essential support.</p>
+    </div>
+  </footer>
+
+  <script src="api.js"></script>
+  <script>
+    let currentTypeFilter = 'all';
+    let isMyItemsView = false;
+
+    const typeIcons = {
+      clothes: '👕',
+      toys: '🧸',
+      books: '📚',
+      household: '🏠'
+    };
+
+    function getTypeIcon(type) {
+      if (!type) return '📦';
+      const t = type.toLowerCase();
+      if (t.includes('cloth') || t.includes('wear') || t.includes('apparel')) return '👕';
+      if (t.includes('toy') || t.includes('game') || t.includes('puzzle')) return '🧸';
+      if (t.includes('book') || t.includes('station') || t.includes('textbook')) return '📚';
+      if (t.includes('house') || t.includes('utensil') || t.includes('blanket')) return '🏠';
+      return '📦';
+    }
+
+    async function loadOtherItems() {
+      const list = document.getElementById('otherItemsList');
+      if (!list) return;
+
+      list.innerHTML = '<p style="color:#888; font-size:14px; text-align:center; padding:16px;">Loading items...</p>';
+
+      const user = BiteShareAPI.getUser();
+      const filters = {};
+      if (currentTypeFilter !== 'all') {
+        filters.type = currentTypeFilter;
+      }
+      if (isMyItemsView) {
+        filters.my = 'true';
+      }
+
+      try {
+        const res = await BiteShareAPI.otherListings.getAll(filters);
+        let items = res.data || res.listings || [];
+
+        // In case API returns all, do client-side filtering as fallback
+        if (isMyItemsView && user) {
+          items = items.filter(item => {
+            const ownerId = item.postedBy?._id || item.postedBy;
+            return ownerId === user._id || ownerId?.toString() === user._id;
+          });
+        }
+        if (currentTypeFilter !== 'all') {
+          items = items.filter(item => (item.type || '').toLowerCase().includes(currentTypeFilter));
+        }
+
+        if (items.length === 0) {
+          list.innerHTML = isMyItemsView
+            ? '<p style="color:#888; font-size:14px; text-align:center; padding:20px;">You have not published any non-food donations yet. Use the form above to add one!</p>'
+            : '<p style="color:#888; font-size:14px; text-align:center; padding:20px;">No donation items found in this category right now.</p>';
+          return;
+        }
+
+        list.innerHTML = items.map(item => {
+          const ownerId = item.postedBy?._id || item.postedBy;
+          const isOwner = user && (ownerId === user._id || ownerId?.toString() === user._id || user.role === 'admin');
+          const icon = getTypeIcon(item.type);
+
+          return `
+            <div class="meal-item" data-item-id="${item._id}">
+              <div class="meal-img">${icon}</div>
+              <div class="meal-details">
+                <h4>${item.title}</h4>
+                <p>📍 ${item.pickupAddress || 'Community Hub'} • <span style="color:#f25c05; font-weight:600; text-transform:capitalize;">${item.type || 'Essential'}</span>${item.description ? ' • ' + item.description.slice(0, 45) + '...' : ''}</p>
+              </div>
+              <div class="meal-action">
+                <span class="portion-badge">${item.quantity} Unit${item.quantity > 1 ? 's' : ''}</span>
+                ${isOwner ? `<button class="btn btn-sm-outline delete-other-btn" data-id="${item._id}" data-title="${item.title}" style="color:#c92a2a; border-color:#c92a2a;">🗑️ Delete</button>` : ''}
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (err) {
+        console.warn('Error loading other listings:', err.message);
+        list.innerHTML = '<p style="color:#c92a2a; font-size:14px; text-align:center; padding:16px;">Failed to load items. Please log in or refresh.</p>';
+      }
+    }
+
+    // Delete item handler
+    document.addEventListener('click', async function(e) {
+      if (!e.target.classList.contains('delete-other-btn')) return;
+
+      const btn = e.target;
+      const itemId = btn.getAttribute('data-id');
+      const title = btn.getAttribute('data-title');
+
+      if (!confirm(`Are you sure you want to remove "${title}"?\nThis action cannot be undone.`)) return;
+
+      try {
+        btn.disabled = true;
+        btn.textContent = 'Deleting...';
+        await BiteShareAPI.otherListings.delete(itemId);
+
+        // Remove from DOM without reloading page
+        const card = btn.closest('.meal-item');
+        if (card) {
+          card.style.transition = 'opacity 0.3s';
+          card.style.opacity = '0';
+          setTimeout(() => card.remove(), 300);
+        }
+      } catch (err) {
+        alert('Could not delete item: ' + err.message);
+        btn.disabled = false;
+        btn.textContent = '🗑️ Delete';
+      }
+    });
+
+    // Form submission
+    document.getElementById('otherListingForm')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const fb = document.getElementById('otherFeedback');
+      const btn = document.getElementById('otherSubmitBtn');
+
+      const title = document.getElementById('otherTitle').value.trim();
+      const type = document.getElementById('otherCategory').value;
+      const quantity = Number(document.getElementById('otherQuantity').value);
+      const pickupAddress = document.getElementById('otherPickupAddress').value.trim();
+      const description = document.getElementById('otherDescription').value.trim();
+
+      try {
+        btn.disabled = true;
+        btn.textContent = 'Publishing...';
+
+        const user = BiteShareAPI.getUser();
+        if (!user || user.role !== 'community') {
+          const otpRes = await BiteShareAPI.auth.otpRequest('9123456780');
+          await BiteShareAPI.auth.otpVerify('9123456780', otpRes.otp, 'community');
+        }
+
+        const res = await BiteShareAPI.otherListings.create({
+          title,
+          type,
+          quantity,
+          pickupAddress,
+          description,
+          location: { coordinates: [77.391, 28.5355] }
+        });
+
+        fb.style.display = 'block';
+        fb.style.background = '#e6fcf5';
+        fb.style.color = '#0ca678';
+        fb.textContent = `✔ Donation published successfully! "${title}" is now visible to shelters.`;
+        document.getElementById('otherListingForm').reset();
+
+        // Update list dynamically without page reload
+        loadOtherItems();
+      } catch (err) {
+        fb.style.display = 'block';
+        fb.style.background = '#ffe3e3';
+        fb.style.color = '#c92a2a';
+        fb.textContent = 'Error: ' + err.message;
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '🚀 Publish Donation Drive';
+      }
+    });
+
+    // Type filter buttons
+    document.querySelectorAll('.type-filter-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.type-filter-btn').forEach(b => {
+          b.style.background = '#fff';
+          b.style.color = '#2d6a4f';
+          b.classList.remove('active');
+        });
+        btn.style.background = '#2d6a4f';
+        btn.style.color = '#fff';
+        btn.classList.add('active');
+
+        currentTypeFilter = btn.getAttribute('data-type');
+        loadOtherItems();
+      });
+    });
+
+    // View tabs: All Items vs My Items
+    document.getElementById('viewAllBtn')?.addEventListener('click', function() {
+      isMyItemsView = false;
+      this.style.background = '#2d6a4f';
+      this.style.color = '#fff';
+      document.getElementById('viewMyBtn').style.background = '#fff';
+      document.getElementById('viewMyBtn').style.color = '#2d6a4f';
+      document.getElementById('itemsSectionTitle').textContent = 'Available Other Items';
+      loadOtherItems();
+    });
+
+    document.getElementById('viewMyBtn')?.addEventListener('click', function() {
+      isMyItemsView = true;
+      this.style.background = '#2d6a4f';
+      this.style.color = '#fff';
+      document.getElementById('viewAllBtn').style.background = '#fff';
+      document.getElementById('viewAllBtn').style.color = '#2d6a4f';
+      document.getElementById('itemsSectionTitle').textContent = 'My Donated Items';
+      loadOtherItems();
+    });
+
+    // Initial load
+    window.addEventListener('DOMContentLoaded', () => {
+      loadOtherItems();
+    });
+  </script>
+</body>
+</html>
