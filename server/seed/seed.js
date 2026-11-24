@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const Listing = require('../models/Listing');
+const OtherListing = require('../models/OtherListing');
 const Order = require('../models/Order');
 const Review = require('../models/Review');
 const connectDB = require('../config/db');
@@ -19,6 +20,7 @@ const seedData = async () => {
     // Clear existing collections
     await User.deleteMany({});
     await Listing.deleteMany({});
+    await OtherListing.deleteMany({});
     await Order.deleteMany({});
     await Review.deleteMany({});
     console.log('✔ Cleared existing collections');
@@ -126,7 +128,97 @@ const seedData = async () => {
 
     console.log('✔ Seeded 2 Surplus Food Listings');
 
-    // 3. Create Sample Completed Order with Handoff logs & Review
+    // 3. Create 3 More Meals (variety of types & dietary)
+    const listing3 = await Listing.create({
+      provider: community._id,
+      title: 'Paneer Butter Masala + Naan (30 portions)',
+      description: 'Restaurant event surplus. Packed in sealed foil containers, still warm.',
+      portions: 30,
+      dietary: 'veg',
+      mealType: 'cooked_meals',
+      pickupWindow: { start: '11:00', end: '21:00' },
+      expiresAt: new Date(Date.now() + 6 * 3600 * 1000),
+      pickupAddress: 'Hotel Sunshine, Sector 18, Noida',
+      location: { type: 'Point', coordinates: [77.3200, 28.5700] },
+      weightKgPerPortion: 0.6,
+      isAvailable: true
+    });
+
+    const listing4 = await Listing.create({
+      provider: community._id,
+      title: 'Mixed Fruit Salad & Juice Boxes (20 packs)',
+      description: 'Fresh cut fruits and packaged juice from a cancelled corporate event.',
+      portions: 20,
+      dietary: 'vegan',
+      mealType: 'fruits_vegetables',
+      pickupWindow: { start: '09:00', end: '18:00' },
+      expiresAt: new Date(Date.now() + 4 * 3600 * 1000),
+      pickupAddress: 'TechPark Gate 2, Sector 135, Noida',
+      location: { type: 'Point', coordinates: [77.4100, 28.5100] },
+      weightKgPerPortion: 0.3,
+      isAvailable: true
+    });
+
+    const listing5 = await Listing.create({
+      provider: community._id,
+      title: 'Chicken Biryani (Non-Veg) — 15 Portions',
+      description: 'Surplus from a birthday party. Cooked fresh today morning. Packed in boxes.',
+      portions: 15,
+      dietary: 'non-veg',
+      mealType: 'cooked_meals',
+      pickupWindow: { start: '14:00', end: '23:00' },
+      expiresAt: new Date(Date.now() + 7 * 3600 * 1000),
+      pickupAddress: 'Rose Garden Colony, Indirapuram, Ghaziabad',
+      location: { type: 'Point', coordinates: [77.3700, 28.6400] },
+      weightKgPerPortion: 0.65,
+      isAvailable: true
+    });
+
+    console.log('✔ Seeded 3 Additional Meal Listings (Paneer Masala, Fruit Salad, Chicken Biryani)');
+
+    // 4. Create OtherListings (Products / Non-Food Items)
+    const product1 = await OtherListing.create({
+      title: 'Winter Blankets & Shawls (10 pcs)',
+      description: 'Gently used woollen blankets and shawls. Cleaned and folded. Perfect for the homeless.',
+      type: 'clothes',
+      quantity: 10,
+      imageUrl: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=500',
+      image: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=500',
+      pickupAddress: 'Vasundhara Colony, Ghaziabad',
+      location: { type: 'Point', coordinates: [77.3500, 28.6200] },
+      status: 'available',
+      postedBy: community._id
+    });
+
+    const product2 = await OtherListing.create({
+      title: 'School Textbooks (Class 6–8)',
+      description: 'NCERT textbooks, lightly used. All subjects. Useful for underprivileged students.',
+      type: 'books',
+      quantity: 25,
+      imageUrl: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=500',
+      image: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=500',
+      pickupAddress: 'Community Library, Sector 50, Noida',
+      location: { type: 'Point', coordinates: [77.4000, 28.5600] },
+      status: 'available',
+      postedBy: community._id
+    });
+
+    const product3 = await OtherListing.create({
+      title: 'Household Utensils Set',
+      description: 'Stainless steel plates, bowls and glasses. Donated from a moving family. Set of 6.',
+      type: 'household',
+      quantity: 6,
+      imageUrl: 'https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=500',
+      image: 'https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=500',
+      pickupAddress: 'Green Avenue, Sector 93, Noida',
+      location: { type: 'Point', coordinates: [77.3800, 28.5200] },
+      status: 'available',
+      postedBy: community._id
+    });
+
+    console.log('✔ Seeded 3 Other Listings / Products (Blankets, Books, Utensils)');
+
+    // 5. Create Sample Completed Order with Handoff logs & Review
     const completedOrder = await Order.create({
       customer: customer._id,
       provider: community._id,
@@ -162,7 +254,7 @@ const seedData = async () => {
       ]
     });
 
-    // 4. Create Sample Review
+    // 6. Create Sample Review
     await Review.create({
       order: completedOrder._id,
       reviewer: customer._id,

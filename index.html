@@ -221,6 +221,7 @@
                 <span class="portion-badge">12 Portions</span>
                 <button class="btn btn-sm-outline analyze-listing-btn" data-name="Rice and Lentil Bowl">🔬 Analyze</button>
                 <button class="btn btn-sm-outline reserve-btn" data-title="Fresh Rice & Lentil Bowls" data-id="sample-1">Claim / Reserve</button>
+                <button class="btn btn-sm-outline delete-my-meal-btn" data-id="sample-1" data-title="Fresh Rice & Lentil Bowls" style="color:#c92a2a; border-color:#c92a2a; margin-left:4px;">🗑️ Delete</button>
               </div>
             </div>
 
@@ -234,6 +235,7 @@
                 <span class="portion-badge">25 Portions</span>
                 <button class="btn btn-sm-outline analyze-listing-btn" data-name="Sourdough Baguette">🔬 Analyze</button>
                 <button class="btn btn-sm-outline reserve-btn" data-title="Artisan Sourdough & Baguettes" data-id="sample-2">Claim / Reserve</button>
+                <button class="btn btn-sm-outline delete-my-meal-btn" data-id="sample-2" data-title="Artisan Sourdough & Baguettes" style="color:#c92a2a; border-color:#c92a2a; margin-left:4px;">🗑️ Delete</button>
               </div>
             </div>
 
@@ -247,6 +249,7 @@
                 <span class="portion-badge">8 Portions</span>
                 <button class="btn btn-sm-outline analyze-listing-btn" data-name="Garden Salad">🔬 Analyze</button>
                 <button class="btn btn-sm-outline reserve-btn" data-title="Fresh Garden Salad Boxes" data-id="sample-3">Claim / Reserve</button>
+                <button class="btn btn-sm-outline delete-my-meal-btn" data-id="sample-3" data-title="Fresh Garden Salad Boxes" style="color:#c92a2a; border-color:#c92a2a; margin-left:4px;">🗑️ Delete</button>
               </div>
             </div>
           </div>
@@ -389,31 +392,41 @@
       const googleRoadmap = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
         maxZoom: 20,
         subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-        attribution: '&copy; <a href="https://maps.google.com" target="_blank">Google Maps</a>'
+        attribution: '&copy; Google Maps'
       });
 
       // Google Maps Live Satellite / Hybrid Layer
       const googleHybrid = L.tileLayer('https://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
         maxZoom: 20,
         subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-        attribution: '&copy; <a href="https://maps.google.com" target="_blank">Google Maps</a>'
+        attribution: '&copy; Google Maps'
       });
 
-      // High-performance CartoDB Voyager Layer
-      const cartoVoyager = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      // Google Maps Terrain Layer
+      const googleTerrain = L.tileLayer('https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
         maxZoom: 20,
-        subdomains: 'abcd',
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+        attribution: '&copy; Google Maps'
       });
 
-      // Default: Google Maps Roadmap
+      // OpenStreetMap via Wikimedia/Humanitarian (No 403 blocks)
+      const osmHot = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team'
+      });
+
+      // Default: Google Roadmap (Fast, crystal clear, reliable without 403 block)
       googleRoadmap.addTo(map);
 
-      // Layer Control (Allows toggling between Google Maps, Satellite, and Carto)
+      // Invalidate map size to ensure tiles render properly even if loaded before layout
+      setTimeout(() => { if (map) map.invalidateSize(); }, 300);
+
+      // Layer Control (Allows toggling between Google Roadmap, Satellite, Terrain, and OSM Hot)
       L.control.layers({
-        '🗺️ Google Maps': googleRoadmap,
+        '🗺️ Google Maps (Road)': googleRoadmap,
         '🛰️ Google Satellite': googleHybrid,
-        '🌿 OpenStreetMap (Carto)': cartoVoyager
+        '⛰️ Google Terrain': googleTerrain,
+        '🌿 OpenStreetMap (HOT)': osmHot
       }, null, { position: 'topright' }).addTo(map);
 
       // Load Google Maps API Key if configured in backend
@@ -691,12 +704,25 @@
           await BiteShareAPI.auth.otpVerify('9123456780', otpRes.otp, 'community');
         }
 
+        // Compute expiresAt (defaults to pickup time today or +6 hours)
+        let expiresDate = new Date();
+        if (pickupTime && pickupTime.includes(':')) {
+          const [hours, mins] = pickupTime.split(':').map(Number);
+          expiresDate.setHours(hours, mins, 0, 0);
+          if (expiresDate.getTime() <= Date.now()) {
+            expiresDate.setDate(expiresDate.getDate() + 1); // tomorrow if time already passed
+          }
+        } else {
+          expiresDate = new Date(Date.now() + 6 * 3600 * 1000);
+        }
+
         const res = await BiteShareAPI.listings.create({
           title,
           quantity,
           category,
           pickupAddress,
           pickupWindow: { from: '18:00', to: pickupTime },
+          expiresAt: expiresDate.toISOString(),
           location: { coordinates: [currentCoords[1], currentCoords[0]] }
         });
 
@@ -714,6 +740,7 @@
         if (list) {
           const item = document.createElement('div');
           item.className = 'meal-item';
+          item.setAttribute('data-listing-id', newId);
           item.innerHTML = `
             <div class="meal-img">🍲</div>
             <div class="meal-details">
@@ -724,6 +751,7 @@
               <span class="portion-badge">${quantity} Portions</span>
               <button class="btn btn-sm-outline analyze-listing-btn" data-name="${title}">🔬 Analyze</button>
               <button class="btn btn-sm-outline reserve-btn" data-title="${title}" data-id="${newId}">Claim / Reserve</button>
+              <button class="btn btn-sm-outline delete-my-meal-btn" data-id="${newId}" data-title="${title}" style="color:#c92a2a; border-color:#c92a2a; margin-left:4px;">🗑️ Delete</button>
             </div>
           `;
           list.prepend(item);
@@ -781,8 +809,8 @@
       if (!list) return;
 
       const user = BiteShareAPI.getUser();
-      if (!user || user.role !== 'community') {
-        if (placeholder) placeholder.textContent = 'Log in as a Community user to see your meals here.';
+      if (!user) {
+        if (placeholder) placeholder.innerHTML = '<span style="color:#666;">Want to post & manage meals? Fill the <strong>"Post a Surplus Meal"</strong> form to auto-create and manage your items!</span>';
         return;
       }
 
@@ -831,6 +859,18 @@
       try {
         btn.disabled = true;
         btn.textContent = 'Deleting...';
+
+        // If it's a sample item or not yet saved in DB, remove directly from DOM
+        if (listingId.startsWith('sample-') || listingId.startsWith('new-')) {
+          const card = btn.closest('.meal-item');
+          if (card) {
+            card.style.transition = 'opacity 0.3s';
+            card.style.opacity = '0';
+            setTimeout(() => card.remove(), 300);
+          }
+          return;
+        }
+
         await BiteShareAPI.listings.delete(listingId);
 
         // Remove the card from DOM without reload
@@ -876,6 +916,8 @@
           const item = document.createElement('div');
           item.className = 'meal-item';
           item.setAttribute('data-listing-id', l._id);
+          const ownerId = l.postedBy?._id || l.postedBy || l.provider;
+          const isOwner = user && (ownerId === user._id || ownerId?.toString() === user._id || user.role === 'admin' || user.role === 'community');
           item.innerHTML = `
             <div class="meal-img">🍲</div>
             <div class="meal-details">
@@ -883,9 +925,10 @@
               <p>📍 ${l.pickupAddress || 'Community Center'} • ⏰ Until ${l.pickupWindow?.to || '21:00'} • <span style="color:#2b6e4e;font-weight:600;">${l.category === 'non-veg' ? 'Non-Veg' : 'Veg'}</span></p>
             </div>
             <div class="meal-action">
-              <span class="portion-badge">${l.quantity} Portions</span>
+              <span class="portion-badge">${l.quantity || l.portions || 1} Portions</span>
               <button class="btn btn-sm-outline analyze-listing-btn" data-name="${l.title}">🔬 Analyze</button>
               <button class="btn btn-sm-outline reserve-btn" data-title="${l.title}" data-id="${l._id}">Claim / Reserve</button>
+              ${isOwner ? `<button class="btn btn-sm-outline delete-my-meal-btn" data-id="${l._id}" data-title="${l.title}" style="color:#c92a2a; border-color:#c92a2a; margin-left:4px;">🗑️</button>` : ''}
             </div>
           `;
           list.appendChild(item);

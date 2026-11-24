@@ -69,9 +69,9 @@ const validateMealListing = [
     }),
 
   body('expiresAt')
-    .notEmpty()
-    .withMessage('expiresAt is required')
+    .optional()
     .custom((val) => {
+      if (!val) return true;
       const d = new Date(val);
       if (isNaN(d.getTime())) {
         throw new Error('expiresAt must be a valid date/time');

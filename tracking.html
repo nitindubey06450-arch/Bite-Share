@@ -191,21 +191,20 @@
       const googleRoadmap = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
         maxZoom: 20,
         subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-        attribution: '&copy; <a href="https://maps.google.com" target="_blank">Google Maps</a>'
+        attribution: '&copy; Google Maps'
       });
 
       // Google Maps Satellite / Hybrid
       const googleHybrid = L.tileLayer('https://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
         maxZoom: 20,
         subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-        attribution: '&copy; <a href="https://maps.google.com" target="_blank">Google Maps</a>'
+        attribution: '&copy; Google Maps'
       });
 
-      // Carto Voyager
-      const cartoVoyager = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        maxZoom: 20,
-        subdomains: 'abcd',
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+      // OpenStreetMap via Humanitarian (No 403 blocks)
+      const osmHot = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
       });
 
       googleRoadmap.addTo(map);
@@ -214,7 +213,7 @@
       L.control.layers({
         '🗺️ Google Maps': googleRoadmap,
         '🛰️ Google Satellite': googleHybrid,
-        '🌿 Carto Map': cartoVoyager
+        '🌿 OpenStreetMap': osmHot
       }, null, { position: 'topright' }).addTo(map);
 
       // Load Google Maps API Key if configured
@@ -247,6 +246,7 @@
       }).addTo(map);
 
       map.fitBounds(routePolyline.getBounds(), { padding: [40, 40] });
+      setTimeout(() => { if (map) map.invalidateSize(); }, 300);
     }
 
     function updateTimeline(status) {
@@ -280,8 +280,30 @@
 
         let order = currentOrderId ? data.order : (data.orders && data.orders[0]);
         if (!order) {
-          document.getElementById('orderTitle').textContent = 'No Active Orders';
-          document.getElementById('orderSubtitle').textContent = 'Please place or accept an order first.';
+          document.getElementById('orderTitle').textContent = 'Live Delivery Simulation';
+          document.getElementById('orderSubtitle').textContent = 'Tracking demo route: Sector 62 Hub ➔ Green Park';
+          document.getElementById('txtPickup').textContent = 'Community Kitchen, Sector 62, Noida';
+          document.getElementById('txtDrop').textContent = 'Green Glen Layout, Sector 50, Noida';
+          document.getElementById('dispPickupCode').textContent = '4821';
+          document.getElementById('dispDeliveryCode').textContent = '8392';
+          document.getElementById('etaDisplay').textContent = '⏱ 12 Mins ETA';
+          updateTimeline('on_the_way');
+
+          // Render live map immediately so map container is never blank
+          const pickupCoords = [77.391, 28.5355];
+          const dropCoords = [77.385, 28.54];
+          initMap(pickupCoords, dropCoords);
+
+          // Animate rider on the map in demo mode
+          let progress = 0;
+          setInterval(() => {
+            if (!riderMarker || !map) return;
+            progress = (progress + 0.04) % 1;
+            const curLat = pickupCoords[1] + (dropCoords[1] - pickupCoords[1]) * progress;
+            const curLng = pickupCoords[0] + (dropCoords[0] - pickupCoords[0]) * progress;
+            riderMarker.setLatLng([curLat, curLng]);
+          }, 1500);
+
           return;
         }
 
