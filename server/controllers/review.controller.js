@@ -56,14 +56,27 @@ const submitReview = async (req, res, next) => {
       });
     }
 
-    const review = await Review.create({
-      order: orderId,
-      reviewer: req.user._id,
-      target: targetUserId,
-      targetType,
-      rating: Number(rating),
-      comment: comment || ''
-    });
+    let review;
+    try {
+      review = await Review.create({
+        order: orderId,
+        reviewer: req.user._id,
+        target: targetUserId,
+        targetType,
+        rating: Number(rating),
+        comment: comment || ''
+      });
+    } catch (createErr) {
+      // Handle MongoDB E11000 duplicate key error gracefully
+      if (createErr.code === 11000) {
+        return res.status(409).json({
+          success: false,
+          message: `You have already reviewed the ${targetType} for this order`,
+          messageHi: `आप पहले ही इस ऑर्डर के लिए ${targetType} की समीक्षा कर चुके हैं`
+        });
+      }
+      throw createErr;
+    }
 
     // Recalculate target user average rating
     const allReviews = await Review.find({ target: targetUserId });
